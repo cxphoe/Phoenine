@@ -50,10 +50,10 @@ export default {
     matchedProjects() {
       let tags = this.selectedTags
       return tags.length
-        ? this.projects.filter((p) => {
-          return p.tags.reduce((res, tag) => {
-            return res || tags.indexOf(tag) >= 0
-          }, false)
+        ? this.projects.filter(p => {
+          return tags.every(tag => {
+            return p.tags.indexOf(tag) >= 0
+          })
         })
         : this.projects
     },

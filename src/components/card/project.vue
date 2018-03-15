@@ -6,7 +6,7 @@
         <img
           class="logo-img" :src="logo"
           onerror="onerror=null;src='static/img/default.png'">
-        <span class="name f5">{{ name }}</span>
+        <span class="name f4">{{ name }}</span>
         <span class="lang">
           <i class="fas fa-code"></i>
           {{ lang }}
@@ -41,8 +41,8 @@
             <i class="fas fa-info-circle"></i>
             详情
           </a>
-          <a :href="homePage" target="_blank" class="project-link">
-            <i class="fa fa-desktop"></i>
+          <a v-if="homePage" :href="homePage" target="_blank" class="project-link">
+            <i class="fas fa-eye"></i>
             Demo
           </a>
         </div>
@@ -73,7 +73,7 @@ export default {
         },
         gitUrl: {
           url: this.url,
-          tooltip: 'Github相关地址',
+          tooltip: 'Github源地址',
           svgClass: 'fab fa-github',
           contentClass: 'f5 gray7',
         },
@@ -157,7 +157,7 @@ export default {
 
   .name {
     color: #fff;
-    top: 90px;
+    top: 94px;
   }
 
   .lang {
