@@ -49,11 +49,11 @@
 
 ## Features
 
-- [x]通过git API获得git repository的信息
-- [ ]登陆界面
-- [ ]留言界面
-- [ ]文章编辑界面
-- [ ]数据储存
+- [x] 通过git API获得git repository的信息
+- [ ] 登陆界面
+- [ ] 留言界面
+- [ ] 文章编辑界面
+- [ ] 数据储存
 
 ## Developing
 
