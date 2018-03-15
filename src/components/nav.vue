@@ -13,8 +13,7 @@
                 v-for="(page, key) in pages"
                 :key=key>
                 <router-link
-                  :to="page.path"
-                  v-text="page.name"
+                  :to="page.path" v-text="page.name"
                 ></router-link>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -22,25 +21,26 @@
         </ph-nav-item>
       </ph-nav-list>
 
-      <ph-nav-list>
-        <a class="ph-navbar-brand" href="/">
-          <img :src="logo" height="30px">
-        </a>
-      </ph-nav-list>
+      <a class="ph-navbar-brand" href="/">
+        <img :src="logo" height="35px" style="margin-top: -10px">
+      </a>
 
-      <ph-nav-list hiddenDown="sm" align="left" class="ml3 mt2">
-        <ph-nav-item v-for="(page, key) in pages" :key=key>
-          <router-link
-            class="ph-nav-link"
-            v-text="page.name"
-            :to="page.path"
-          ></router-link>
+      <ph-nav-list hiddenDown="sm" align="left" class="ml5 mt1">
+        <ph-nav-item>
+          <el-menu class="bn" mode="horizontal" router>
+            <el-menu-item class="f3" index="1-1" route="/project">
+              项目
+            </el-menu-item>
+            <el-menu-item class="f3" index="1-2" route="/article">
+              文章
+            </el-menu-item>
+          </el-menu>
         </ph-nav-item>
       </ph-nav-list>
 
-      <ph-nav-list hiddenDown="sm">
-        <ph-nav-item>
-          <el-dropdown class="v-middle">
+      <ph-nav-list>
+        <ph-nav-item hiddenDown="sm">
+          <el-dropdown class="v-middle f3 mr3">
             <span class="el-dropdown-link">
               Contact<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -61,9 +61,11 @@
           </el-dropdown>
         </ph-nav-item>
         <ph-nav-item>
-          <a id="login" href="#" class="ph-nav-link">
-            <i class="fas fa-sign-in-alt"></i> 登录
-          </a>
+          <el-tooltip content="登陆" placement="left">
+            <a id="login" href="#" class="gray6 f4 ma1">
+              <i class="fas fa-sign-in-alt"></i>
+            </a>
+          </el-tooltip>
         </ph-nav-item>
       </ph-nav-list>
     </ph-nav>
@@ -105,21 +107,9 @@ export default {
   text-align: center;
 }
 
-.el-dropdown {
-  font-size: 1.1rem;
-  margin-right: 20px;
-}
-
 #login {
-  padding: 4px 12px;
-  color: $color-first;
-  border-bottom: 2px solid $color-first;
-  box-shadow: 0 0 1px 1px $color-first;
-
   &:hover {
-    background-color: $color-first;
-    color: #fff;
-    border-bottom-color: #fff;
+    color: $color-first;
   }
 }
 </style>

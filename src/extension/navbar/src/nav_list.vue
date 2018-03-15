@@ -5,12 +5,14 @@
 </template>
 
 <script>
+import navMixin from './nav_mixin'
+
 export default {
   name: 'PhNavList',
 
+  mixins: [navMixin],
+
   props: {
-    hiddenUp: String,
-    hiddenDown: String,
     align: {
       type: String,
     },
@@ -23,16 +25,6 @@ export default {
         'mr-auto': ['left', 'center'].includes(this.align),
       }
     },
-
-    hiddenClass() {
-      let sizes = ['lg', 'md', 'sm', 'xs']
-      return ['Up', 'Down'].map(type => {
-        let size = this['hidden' + type]
-        return sizes.includes(size)
-          ? `ph-hidden-${size}-${type.toLowerCase()}`
-          : ''
-      })
-    }
   }
 }
 </script>

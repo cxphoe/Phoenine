@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/page/home'
-import ProjectPage from '@/components/page/project/index'
-import ProjectDatail from '@/components/detail/project'
+import Home from '../components/page/home'
+import ProjectPage from '../components/page/project/index'
+import ProjectDatail from '../components/detail/project'
 
 Vue.use(Router)
 

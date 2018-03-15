@@ -1,6 +1,10 @@
 <script>
+import navMixin from './nav_mixin'
+
 export default {
   name: 'PhNavItem',
+
+  mixins: [navMixin],
 
   props: {
     // margin-left
@@ -20,6 +24,7 @@ export default {
     })
 
     return h('li', {
+      class: [...this.hiddenClass],
       style,
     }, this.$slots.default)
   }
