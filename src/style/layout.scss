@@ -1,0 +1,69 @@
+@import "variable";
+
+@media (min-width: $--breakpoint-sm) {
+  .ph-container {
+      max-width: $--breakpoint-sm - 26px;
+  }
+}
+
+@media (min-width: $--breakpoint-md) {
+  .ph-container {
+      max-width: $--breakpoint-md - 48px;
+  }
+}
+
+@media (min-width: $--breakpoint-lg) {
+  .ph-container {
+      max-width: $--breakpoint-lg - 32px;
+  }
+}
+
+@media (min-width: $--breakpoint-xl) {
+  .ph-container {
+    max-width: $--breakpoint-xl - 60px;
+  }
+}
+
+.ph-container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.all-inline-box {
+  * {
+    display: block;
+  }
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.max-h-100 {
+  max-height: 100%;
+}
+
+.max-w-100 {
+  max-width: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.w-auto {
+  width: auto;
+}
