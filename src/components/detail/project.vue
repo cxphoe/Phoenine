@@ -61,10 +61,9 @@ export default {
       if (!doc) {
         return
       }
-      console.log(this.detail.demo)
       // 把所有 img 的根目录路径替换为相应的链接
       let cp = this.detail.contentPath
-      let imgReg = /<img src="(?!(http|https))(.*)">/g
+      let imgReg = /<img src="(?!(http|https))(.*)>/g
       let match = imgReg.exec(doc)
       while (match) {
         let src = match[2]
