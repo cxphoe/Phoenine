@@ -17,6 +17,7 @@
         ></ph-tag>
       </div>
     </div>
+    <Loading size="xl" v-if="projects.length === 0"></Loading>
     <section class="flex flex-row ma0 pa0 flex-wrap">
       <ProjectCard
         class="w-25-lg w-33-md w-50-sm w-100-xs"
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import Loading from '../../../mixins/loading'
 import ProjectCard from '../../card/project'
 
 export default {
@@ -66,6 +68,7 @@ export default {
   },
 
   components: {
+    Loading,
     ProjectCard,
   },
 }

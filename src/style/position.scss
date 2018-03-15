@@ -2,26 +2,6 @@
   position: relative;
 }
 
-.flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-column, .flex-row {
-  -webkit-box-direction: normal;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
 .center {
   margin-left: auto;
   margin-right: auto;

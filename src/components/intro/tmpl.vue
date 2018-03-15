@@ -12,7 +12,10 @@
         </a>
       </nav>
     </div>
-    <div class="ph-container">
+    <div v-if="isMobile" class="flex of-auto ph5 pv2">
+      <slot name="mobile"></slot>
+    </div>
+    <div v-else class="ph-container">
       <el-row :gutter="20">
         <slot></slot>
       </el-row>
@@ -21,14 +24,22 @@
 </template>
 
 <script>
+import { isMobile } from '../../util'
+
 export default {
   name: 'IntroTemplate',
+
+  data() {
+    return {
+      isMobile: isMobile(),
+    }
+  },
 
   props: {
     link: {
       type: String,
       required: true,
-    }
+    },
   },
 }
 </script>

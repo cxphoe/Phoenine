@@ -1,13 +1,25 @@
 <template>
   <IntroTemplate link=/article>
     <span slot="header">文章 · Article</span>
+    <Loading size="xl" v-if="dataset.length === 0"></Loading>
+    <div
+      slot="mobile"
+      v-for="(data, index) in introSet"
+      :key="index"
+      >
+      <ArticleCard
+        v-bind="data"
+        class="mr4"
+        style="width: 18rem"
+      ></ArticleCard>
+    </div>
     <el-col
       class="shrink-xxs"
       v-for="(data, index) in introSet"
-      :sm=12 :xs=24
-      :key=index>
+      :sm="12" :xs="24"
+      :key="index">
       <ArticleCard
-        v-bind=data
+        v-bind="data"
       ></ArticleCard>
     </el-col>
   </IntroTemplate>
@@ -16,12 +28,11 @@
 <script>
 import ArticleCard from '../card/article'
 import { generateIntroObj } from './util'
-import IntroTemplate from './tmpl'
 
 export default generateIntroObj({
   name: 'HomeArticleIntro',
+
   components: {
-    IntroTemplate,
     ArticleCard,
   },
 })
