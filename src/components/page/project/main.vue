@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Loading from '../../../mixins/loading'
+import Loading from '../../utils/loading'
 import ProjectCard from '../../card/project'
 
 export default {

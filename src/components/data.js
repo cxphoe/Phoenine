@@ -14,6 +14,12 @@ const getContentUrl = function (repoName, filePath) {
   return contentBasePath + repoName + filePath
 }
 
+const processException = function (exception, response) {
+  let isError = exception instanceof Error
+  response.status = isError ? 404 : exception.status
+  response.statusText = isError ? '你访问的资源不存在' : exception.statusText
+}
+
 const getProjectIntro = function (repo) {
   let projectData = {
     tags: [],
@@ -36,18 +42,22 @@ const getProjectIntro = function (repo) {
   return projectData
 }
 
-const getProjectDetail = function (data, repo) {
+const getProjectDetail = function (repo, response) {
+  let data = response.data
   let name = repo.name
   data.description = repo.description
   data.logo = getContentUrl(name, logoPath)
   data.lang = repo.language
   data.url = repo.html_url
   data.homePage = repo.homepage
+  response.isProject = repo.has_pages
 
   axios.get(getContentUrl(name, readmePath))
-    .then((response) => {
-      data.doc = marked(response.data)
-      console.log(data)
+    .then(resp => {
+      data.doc = marked(resp.data)
+    })
+    .catch(exception => {
+      processException(exception, response)
     })
 }
 
@@ -65,23 +75,31 @@ const getAsyncProjectsIntro = function () {
 }
 
 const getAsyncProjectDetail = function (name) {
-  // 初始化数据
-  let data = {
-    name,
-    logo: '',
-    lang: '',
-    description: '',
-    doc: '',
-    contentPath: contentBasePath + name + '/master/',
+  let response = {
+    // 初始化数据
+    status: '',
+    statusText: '',
+    isProject: '',
+    data: {
+      name,
+      logo: '',
+      lang: '',
+      description: '',
+      doc: '',
+      contentPath: contentBasePath + name + '/master/',
+    },
   }
   let path = repoBasePath + name
 
   axios.get(path)
-    .then((response) => {
-      getProjectDetail(data, response.data)
+    .then(resp => {
+      getProjectDetail(resp.data, response)
+    })
+    .catch(exception => {
+      processException(exception, response)
     })
 
-  return data
+  return response
 }
 
 export {

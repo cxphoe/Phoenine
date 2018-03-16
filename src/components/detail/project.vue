@@ -1,60 +1,84 @@
 <template>
   <div class="project-container">
-    <header class="header">
-      <div>
-        <div class="flex items-center">
-          <h4>{{ detail.name }}</h4>
-          <ph-tag
-            :content="detail.lang"
-            :styleObj="{ marginLeft: '10px', fontSize: '.7em' }"
-          ></ph-tag>
+    <ErrorPage
+      v-if="fetchFailed"
+      :status="resp.status"
+      :statusText="resp.statusText"
+    ></ErrorPage>
+    <ErrorPage
+      v-else-if="notProject"
+      status="404"
+      statusText="你访问的页面不存在"
+    ></ErrorPage>
+    <div v-else>
+      <header class="header">
+        <div>
+          <div class="flex items-center">
+            <h4>{{ detail.name }}</h4>
+            <ph-tag
+              :content="detail.lang"
+              :styleObj="{ marginLeft: '10px', fontSize: '.7em' }"
+            ></ph-tag>
+          </div>
+          <span class="gray6"> {{ detail.description }}</span>
         </div>
-        <span class="gray6"> {{ detail.description }}</span>
-      </div>
-      <div class="flex items-center ml-auto mt2 pl5">
-        <el-button
-          class="f2"
-          size="small"
-          type="primary"
-          @click="handleClick(detail.url)"
-          round
-        ><i class="fab fa-github"></i>&nbsp;源地址</el-button>
-        <el-button
-          size="small"
-          type="primary"
-          @click="handleClick(detail.homePage)"
-          round
-        ><i class="fas fa-eye"></i>&nbsp;Demo</el-button>
-      </div>
-    </header>
-    <main class="main bg-white">
-      <div class="main-header">
-        <i class="fas fa-book"></i>
-        README.md
-      </div>
-      <div
-        v-html="doc"
-        class="markdown-body pa5"
-      ></div>
-    </main>
+        <div class="flex items-center ml-auto mt2 pl5">
+          <el-button
+            class="f2"
+            size="small"
+            type="primary"
+            @click="handleClick(detail.url)"
+            round
+          ><i class="fab fa-github"></i>&nbsp;源地址</el-button>
+          <el-button
+            v-if="detail.homePage"
+            size="small"
+            type="primary"
+            @click="handleClick(detail.homePage)"
+            round
+          ><i class="fas fa-eye"></i>&nbsp;Demo</el-button>
+        </div>
+      </header>
+      <main class="main bg-white">
+        <div class="main-header">
+          <i class="fas fa-book"></i>
+          README.md
+        </div>
+        <div
+          v-html="doc"
+          class="markdown-body pa5"
+        ></div>
+      </main>
+    </div>
   </div>
 </template>
 
 <script>
 import { getAsyncProjectDetail } from '../data'
+import ErrorPage from '../utils/error_page'
 
 export default {
   name: 'ProjectInstance',
 
   data() {
+    const resp = getAsyncProjectDetail(this.$route.params.name)
     return {
-      detail: getAsyncProjectDetail(this.$route.params.name),
+      resp,
     }
   },
 
   computed: {
-    demoUrl() {
-      return this.detail.demo
+    detail() {
+      return this.resp.data
+    },
+    fetchFailed() {
+      let s = this.resp.status
+      return s && (s < 200 || s >= 300)
+    },
+    notProject() {
+      let isProject = this.resp.isProject
+      console.log(this.resp, isProject)
+      return typeof isProject === 'boolean' && !isProject
     },
     doc() {
       let doc = this.detail.doc
@@ -78,6 +102,10 @@ export default {
     handleClick(url) {
       window.location.href = url
     }
+  },
+
+  components: {
+    ErrorPage,
   },
 }
 </script>

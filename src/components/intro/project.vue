@@ -24,12 +24,14 @@
 <script>
 import ProjectCard from '../card/project'
 import { generateIntroObj } from './util'
+import ErrorPage from '../utils/error_page'
 
 export default generateIntroObj({
   name: 'HomeProjectIntro',
 
   components: {
     ProjectCard,
+    ErrorPage,
   },
 })
 </script>

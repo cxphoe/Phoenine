@@ -1,4 +1,4 @@
-import Loading from '../../mixins/loading'
+import Loading from '../utils/loading'
 import IntroTemplate from './tmpl'
 import { isMobile } from '../../util'
 
