@@ -22,21 +22,16 @@
           </div>
           <span class="gray6"> {{ detail.description }}</span>
         </div>
-        <div class="flex items-center ml-auto mt2 pl5">
-          <el-button
-            class="f2"
-            size="small"
-            type="primary"
-            @click="handleClick(detail.url)"
-            round
-          ><i class="fab fa-github"></i>&nbsp;源地址</el-button>
-          <el-button
+        <div class="flex items-center ml-auto mt2 pl4">
+          <a
+            class="link f2 b-gray4 pv1 ph2 br1 btn-depth"
+            :href="detail.url"
+          ><i class="fab fa-github"></i>&nbsp;源地址</a>
+          <a
+            class="link f2 b-gray4 pv1 ph2 br1 btn-depth"
             v-if="detail.homePage"
-            size="small"
-            type="primary"
-            @click="handleClick(detail.homePage)"
-            round
-          ><i class="fas fa-eye"></i>&nbsp;Demo</el-button>
+            :href="detail.homePage"
+          ><i class="fas fa-eye"></i>&nbsp;Demo</a>
         </div>
       </header>
       <main class="main bg-white">
@@ -98,12 +93,6 @@ export default {
     },
   },
 
-  methods: {
-    handleClick(url) {
-      window.location.href = url
-    }
-  },
-
   components: {
     ErrorPage,
   },
@@ -119,23 +108,6 @@ export default {
   h4 {
     font-family: $font-display;
   }
-
-  a {
-    color: $color-text;
-    font-size: .8rem;
-    padding: .3rem .4rem;
-    margin-left: .5rem;
-    background-color: $color-gray3;
-    border: 1px solid $color-gray3;
-    border-radius: .25rem;
-    background-image: linear-gradient(-180deg, $color-light 0%, $color-gray2 90%);;
-
-    &:hover {
-      text-decoration: none;
-      background-image: none;
-      border-color: $color-gray5;
-    }
-  }
 }
 
 .main {
@@ -149,6 +121,19 @@ export default {
     font-weight: bold;
     background-color: $color-light;
   }
+}
+
+.link {
+  color: $color-first;
+  &:hover {
+    color: #fff;
+    background-color: rgba($color-first, 0.7);
+    border-color: $color-first;
+  }
+}
+
+.link + .link {
+  margin-left: .5rem;
 }
 
 .project-container {

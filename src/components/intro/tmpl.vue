@@ -5,11 +5,13 @@
         <p class="mr-auto gray7 f4 fw6 mv2">
           <slot name="header"></slot>
         </p>
-        <a :href="link" class="link white bg-gray7
-          fw6 br5 pv2 ph3 f2 hover-white hover-scale">
+        <el-button
+          class="fw6 br2 pv2 ph2 f2"
+          type="primary"
+          @click="handleClick(link)">
           <span>查看更多</span>
           <i class="fas fa-angle-double-right"></i>
-        </a>
+        </el-button>
       </nav>
     </div>
     <div v-if="isMobile" class="flex of-auto ph5 pv2">
@@ -40,6 +42,12 @@ export default {
       type: String,
       required: true,
     },
+  },
+
+  methods: {
+    handleClick(url) {
+      this.$router.push(url)
+    }
   },
 }
 </script>
