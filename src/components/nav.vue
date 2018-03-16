@@ -62,9 +62,9 @@
         </ph-nav-item>
         <ph-nav-item>
           <el-tooltip content="登陆" placement="left">
-            <a id="login" href="#" class="gray6 f4 ma1">
+            <router-link id="login" to="/login" class="gray6 f4 ma1">
               <i class="fas fa-sign-in-alt"></i>
-            </a>
+            </router-link>
           </el-tooltip>
         </ph-nav-item>
       </ph-nav-list>

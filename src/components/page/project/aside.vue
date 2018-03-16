@@ -5,7 +5,7 @@
         v-model="checkList"
         @input=hangleInput>
         <ph-checkbox
-          class="ma0 ph5 pv2 fw6 lh-title hover-bg-white hover-blue"
+          class="ma0 ph5 pv2 fw6 lh-title hover-bg-white hover-blue w-100"
           v-for="item in items"
           :key=item
           :label=item

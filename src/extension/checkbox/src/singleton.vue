@@ -15,10 +15,14 @@
       :value="label"
       :name="name"
       @change=handleChange>
-    <div v-html=sign></div>
+    <span class="sign" v-html=sign></span>
     <span v-if="$slots.default || label">
       <slot></slot>
-      <template v-if="!$slots.default">{{ label }}</template>
+      <span
+        v-if="!$slots.default"
+        v-text="label"
+        :style="labelStyle"
+      ></span>
     </span>
   </label>
 </template>
@@ -29,7 +33,7 @@ import Emitter from '../../../mixins/emitter'
 export default {
   name: 'PhCheckbox',
 
-  componentName: 'PhCheckBox',
+  componentName: 'PhCheckbox',
 
   mixins: [Emitter],
 
@@ -46,6 +50,7 @@ export default {
     checked: Boolean,
     trueLabel: [String, Number],
     falseLabel: [String, Number],
+    labelStyle: Object,
     textColor: String,
     activeBgColor: String,
   },
@@ -75,7 +80,7 @@ export default {
 
       set(val) {
         if (this.isGroupMember) {
-          this.dispatch('PhCheckBoxGroup', 'input', val)
+          this.dispatch('PhCheckboxGroup', 'input', val)
         } else {
           this.$emit('input', val)
           this.selfModel = val
@@ -86,7 +91,7 @@ export default {
     isGroupMember() {
       let parent = this.$parent
       while (parent) {
-        if (parent.$options.componentName !== 'PhCheckBoxGroup') {
+        if (parent.$options.componentName !== 'PhCheckboxGroup') {
           parent = parent.$parent
         } else {
           /* eslint-disable */
@@ -133,7 +138,7 @@ export default {
       this.$nextTick(() => {
         if (this.isGroup) {
           let value = this._checkboxGroup.value
-          this.dispatch('PhCheckBoxGroup', 'change', value)
+          this.dispatch('PhCheckboxGroup', 'change', value)
         }
       })
     },
@@ -148,15 +153,14 @@ export default {
 <style lang="scss">
 .ph-checkbox {
   cursor: pointer;
-  display: flex;
+  display: inline-block;
 
   input[type="checkbox"] {
     display: none;
   }
 
-  div {
-    width: 2rem;
-    text-align: center;
+  .sign {
+    margin-right: .25rem;
   }
 }
 </style>

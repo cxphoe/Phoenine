@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="home-head">
-      <img class="" alt="Phoenine" src="static/img/bg.png">
+    <div class="head">
+      <img alt="Phoenine" src="static/img/bg.png">
     </div>
     <ProjectIntro :dataset=projects :showAmount=4></ProjectIntro>
     <ArticleIntro :dataset=articles :showAmount=4></ArticleIntro>
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#home-head {
+.head {
   text-align: center;
   background-color: #FFF;
 

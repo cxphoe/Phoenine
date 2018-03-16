@@ -10,7 +10,7 @@ import Emitter from '../../../mixins/emitter'
 export default {
   name: 'PhCheckboxGroup',
 
-  componentName: 'PhCheckBoxGroup',
+  componentName: 'PhCheckboxGroup',
 
   mixins: [Emitter],
 
