@@ -1,54 +1,56 @@
 <template>
-  <div class="project">
-    <ph-card :bodyStyle="bodyStyle" :headerStyle="headerStyle">
-      <div class="relative header" slot="header">
-        <!-- onerror 防止图片加载错误 -->
-        <img
-          class="logo-img" :src="logo"
-          onerror="onerror=null;src='static/img/default.png'">
-        <span class="name f4">{{ name }}</span>
-        <span class="lang">
-          <i class="fas fa-code"></i>
-          {{ lang }}
-        </span>
-        <img class="w-100 h-auto" :src="bgImg">
-      </div>
-      <div>
-        <el-row type=flex class="git-info">
-          <el-col
-            class="mv-auto"
-            v-for="(value, key) in gitInfo"
-            :key=key :span="8">
-            <el-tooltip
-              effect="dark"
-              placement="top"
-              :content=value.tooltip>
-              <el-button type="text" :class="value.contentClass">
-                <a v-if="value.url" :href="value.url" target="_blank">
-                  <i :class="value.svgClass"></i>
-                </a>
-                <i v-else :class="value.svgClass"></i>
-                {{ value.count }}
-              </el-button>
-            </el-tooltip>
-          </el-col>
-        </el-row>
-        <div class="pa3">
-          <div class="card-info">
-            <p class="gray5">{{ description }}</p>
-          </div>
-          <a :href="'\\project\\' + name" class="project-link">
-            <i class="fas fa-info-circle"></i>
-            详情
-          </a>
-          <a v-if="homePage" :href="homePage" target="_blank" class="project-link">
-            <i class="fas fa-eye"></i>
-            Demo
-          </a>
+  <transition name="scale">
+    <div class="project">
+      <ph-card :bodyStyle="bodyStyle" :headerStyle="headerStyle">
+        <div class="relative header" slot="header">
+          <!-- onerror 防止图片加载错误 -->
+          <img
+            class="logo-img" :src="logo"
+            onerror="onerror=null;src='static/img/default.png'">
+          <span class="name f4">{{ name }}</span>
+          <span class="lang">
+            <i class="fas fa-code"></i>
+            {{ lang }}
+          </span>
+          <img class="w-100 h-auto" :src="bgImg">
         </div>
-      </div>
-    </ph-card>
-  </div>
+        <div>
+          <el-row type=flex class="git-info">
+            <el-col
+              class="mv-auto"
+              v-for="(value, key) in gitInfo"
+              :key=key :span="8">
+              <el-tooltip
+                effect="dark"
+                placement="top"
+                :content=value.tooltip>
+                <el-button type="text" :class="value.contentClass">
+                  <a v-if="value.url" :href="value.url" target="_blank">
+                    <i :class="value.svgClass"></i>
+                  </a>
+                  <i v-else :class="value.svgClass"></i>
+                  {{ value.count }}
+                </el-button>
+              </el-tooltip>
+            </el-col>
+          </el-row>
+          <div class="pa3">
+            <div class="card-info">
+              <p class="gray5">{{ description }}</p>
+            </div>
+            <a :href="'\\project\\' + name" class="project-link">
+              <i class="fas fa-info-circle"></i>
+              详情
+            </a>
+            <a v-if="homePage" :href="homePage" target="_blank" class="project-link">
+              <i class="fas fa-eye"></i>
+              Demo
+            </a>
+          </div>
+        </div>
+      </ph-card>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -120,6 +122,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.scale-enter-active, .scale-leave-active {
+  transition: all .5s;
+}
+
+.scale-enter, .scale-leave-to {
+  transform: scale(0);
+}
+
 .project {
   text-align: center;
   margin-bottom:20px;
