@@ -33,7 +33,10 @@
     <el-button
       class="w-100 f3 btn-depth br1 login-btn"
       @click="onSubmit"
-    >登陆</el-button>
+    >
+      <span class="mr2">登陆</span>
+      <i class="fas fa-arrow-right"></i>
+    </el-button>
   </div>
 </template>
 

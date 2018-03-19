@@ -1,5 +1,5 @@
 <template>
-  <div class="project-container">
+  <div class="project-container ph-container-wo-xl">
     <ErrorPage
       v-if="fetchFailed"
       :status="resp.status"
@@ -45,20 +45,29 @@
         ></div>
       </main>
     </div>
+    <CommentList
+      :dataset="dataset"
+      @submit="handleSubmit"
+    ></CommentList>
   </div>
 </template>
 
 <script>
 import { getAsyncProjectDetail } from '../data'
 import ErrorPage from '../utils/error_page'
+import CommentList from '../comment/list'
+import { projectDatabase } from '../../database/project'
 
 export default {
   name: 'ProjectInstance',
 
   data() {
-    const resp = getAsyncProjectDetail(this.$route.params.name)
+    let name = this.$route.params.name
+    const resp = getAsyncProjectDetail(name)
     return {
+      name,
       resp,
+      dataset: projectDatabase.getDataset(name)
     }
   },
 
@@ -72,7 +81,6 @@ export default {
     },
     notProject() {
       let isProject = this.resp.isProject
-      console.log(this.resp, isProject)
       return typeof isProject === 'boolean' && !isProject
     },
     doc() {
@@ -93,8 +101,15 @@ export default {
     },
   },
 
+  methods: {
+    handleSubmit(data) {
+      projectDatabase.addComment(this.name, data)
+    },
+  },
+
   components: {
     ErrorPage,
+    CommentList,
   },
 }
 </script>
@@ -137,32 +152,12 @@ export default {
 }
 
 .project-container {
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 5rem;
 }
 
 @media screen and (max-width: 576px) {
   .project-container {
     width: 95%;
-  }
-}
-
-@media screen and (min-width: 576px) {
-  .project-container {
-    width: 550px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .project-container {
-    width: 720px;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .project-container {
-    width: 960px;
   }
 }
 </style>

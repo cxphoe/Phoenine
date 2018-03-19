@@ -19,3 +19,37 @@ $bold-width: 0.2625rem;
 .hover-bd-gray5:hover {
   border-color: $color-gray5;
 }
+
+$basic-bg-color: #1c7cd6;
+
+.blue-btn-nbw {
+  color: #fff;
+  border-color: #1663ab;
+  background-color: rgba($basic-bg-color, 0.9);
+
+  &:hover {
+    background-color: $basic-bg-color;
+  }
+}
+
+.btn-safe {
+  border: none;
+  color: white;
+  background-color: rgba(#52aac1, 0.8);
+
+  &:hover {
+    color: white;
+    background-color: #52aac1;
+  }
+}
+
+.btn-danger {
+  border: none;
+  color: white;
+  background-color: rgba(#fa5252, 0.8);
+
+  &:hover {
+    color: white;
+    background-color: #fa5252;
+  }
+}

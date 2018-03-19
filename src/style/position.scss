@@ -22,3 +22,9 @@
 .r0 {
   right: 0;
 }
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+}

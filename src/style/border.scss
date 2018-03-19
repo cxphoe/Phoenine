@@ -77,3 +77,31 @@
 .b-gray5 {
   border-color: $color-gray5;
 }
+
+.border-up-arrow {
+  &::before, &::after {
+    position: absolute;
+    top: -18px;
+    right: 100%;
+    left: 18px;
+    display: block;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    content: " ";
+    border-color: transparent;
+    border-style: solid;
+  }
+
+  &::before {
+    border-width: 9px;
+    border-bottom-color: #ddd;
+  }
+
+  &::after {
+    margin-top: 4px;
+    margin-left: 2px;
+    border-width: 7px;
+    border-bottom-color: #fff;
+  }
+}

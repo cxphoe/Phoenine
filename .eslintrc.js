@@ -40,5 +40,6 @@ module.exports = {
     "consistent-this": [1, "that"],
     //函数定义时括号前面要不要有空格
     "space-before-function-paren": [0, "always"],
+    "operator-linebreak": [2, "before"],
   }
 }

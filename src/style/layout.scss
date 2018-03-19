@@ -1,19 +1,19 @@
 @import "variable";
 
 @media (min-width: $--breakpoint-sm) {
-  .ph-container {
+  .ph-container, .ph-container-wo-xl {
       max-width: $--breakpoint-sm - 26px;
   }
 }
 
 @media (min-width: $--breakpoint-md) {
-  .ph-container {
+  .ph-container, .ph-container-wo-xl {
       max-width: $--breakpoint-md - 48px;
   }
 }
 
 @media (min-width: $--breakpoint-lg) {
-  .ph-container {
+  .ph-container, .ph-container-wo-xl {
       max-width: $--breakpoint-lg - 32px;
   }
 }
@@ -24,7 +24,7 @@
   }
 }
 
-.ph-container {
+.ph-container, .ph-container-wo-xl {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
@@ -58,6 +58,10 @@
 
 .max-w-100 {
   max-width: 100%;
+}
+
+.max-w-100-not {
+  max-width: 100% !important;
 }
 
 .h-auto {
