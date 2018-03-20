@@ -2,7 +2,7 @@
   <el-dialog
     :title="title"
     :visible.sync="visiable"
-    width="50%"
+    :width="width"
   >
     <Comment
       v-for="(comment, index) in comments"
@@ -17,6 +17,7 @@
 
 <script>
 import Comment from './comment'
+import { isMobile } from '../../util'
 
 export default {
   name: 'CommentDialog',
@@ -39,6 +40,9 @@ export default {
         // 触发 .sync 绑定属性的更新
         this.$emit('update:dialogVisible', newVal)
       }
+    },
+    width() {
+      return isMobile() ? '100%' : '50%'
     }
   },
 
