@@ -15,19 +15,19 @@
         <img :src="logo" height="35px" style="margin-top: -10px">
       </a>
 
-      <ph-nav-list hiddenDown="sm" align="left" class="ml5 mt1">
-        <ph-nav-item>
-          <el-menu class="bn" mode="horizontal" router>
-            <el-menu-item
-              v-for="(page, key) in pages"
-              :key="key"
-              :index="`1-${key}`"
-              :route="page.path"
-            >
-              <span v-html="page.prefix" class="v-align-none"></span>
-              <span class="ml1">{{ page.name }}</span>
-            </el-menu-item>
-          </el-menu>
+      <ph-nav-list hiddenDown="sm" align="left" class="ml5 mt2">
+        <ph-nav-item
+          v-for="(page, index) in pages"
+          :key="index"
+        >
+          <router-link
+            class="ph-nav-link f2"
+            exact-active-class="nav-router-active"
+            :to="page.path"
+          >
+            <span v-html="page.prefix" class="v-align-none"></span>
+            <span class="ml1">{{ page.name }}</span>
+          </router-link>
         </ph-nav-item>
       </ph-nav-list>
 
@@ -73,7 +73,7 @@
         <router-link
           class="nav-link"
           :to="page.path"
-          exact-active-class="nav-router-active"
+          exact-active-class="subnav-router-active"
         >
           <span v-html="page.prefix"></span>
           <span class="ml1">{{ page.name }}</span>
@@ -154,7 +154,11 @@ export default {
 }
 
 .nav-router-active {
+  border-bottom-color: $color-first !important;
+}
+
+.subnav-router-active {
   background-color: #fafbfc;
-  border-left: 3px solid $color-first;
+  border-left-color: $color-first;
 }
 </style>

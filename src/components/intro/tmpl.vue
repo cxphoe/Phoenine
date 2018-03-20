@@ -2,7 +2,7 @@
   <div class="bg-gray0">
     <div class="ph-container">
       <nav class="ph-navbar">
-        <p class="mr-auto gray7 f4 fw6 mv2">
+        <p class="mr-auto gray7 f4 fw6 mv3">
           <slot name="header"></slot>
         </p>
         <el-button
