@@ -4,7 +4,7 @@
       <img :src="avatar || '/static/img/bg.png'">
     </span>
     <div class="comment-body">
-      <div class="mv1 color-first">
+      <div class="mt1 color-first">
         <span class="fw6">{{ user }}</span>
         <template v-if="replyTargetID">
           <span class="gray5 mh1">
@@ -13,9 +13,13 @@
           <span class="fw6">{{ replyTargetUser }}</span>
         </template>
       </div>
-      <p class="comment-content">{{ content }}</p>
+      <div class="f1 gray6">{{ dateInfo }}</div>
+      <div
+        class="comment-content gray7 markdown-body"
+        v-html="markedContent"
+      ></div>
       <div class="comment-op">
-        <span v-if="!checkDisabled">
+        <template v-if="!checkDisabled">
           <el-button
             v-if="replyTargetID"
             @click="checkConvr"
@@ -36,8 +40,7 @@
           >
             <i class="fas fa-reply"></i>&nbsp;回复
           </el-button>
-        </span>
-        <span class="f2 gray5">{{ dateInfo }}</span>
+        </template>
       </div>
     </div>
   </li>
@@ -45,15 +48,10 @@
 
 <script>
 import CommentEditor from './editor'
+import marked from 'marked'
 
 export default {
   name: 'Comment',
-
-  data() {
-    return {
-      showReplyEditor: false,
-    }
-  },
 
   props: {
     commentList: Object,
@@ -99,6 +97,10 @@ export default {
       let id = this.replyTargetID
       return id && this.commentList[id].user
     },
+
+    markedContent() {
+      return marked(this.content)
+    },
   },
 
   methods: {
@@ -134,6 +136,7 @@ $avatar-mr: .5rem;
 
   .comment-content {
     font-size: .9rem;
+    padding: .5rem 0;
   }
 
   .comment-avatar {
@@ -158,12 +161,18 @@ $avatar-mr: .5rem;
     font-size: 1rem;
     padding-top: .5rem;
 
-    .comment-op button {
-      padding: 0;
-      margin: 0;
-      margin-right: .5rem;
-      border: none;
-      font-size: .8rem;
+    .comment-op {
+      margin-top: .25rem;
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        padding: 0;
+        margin: 0;
+        margin-right: .5rem;
+        border: none;
+        font-size: .8rem;
+      }
     }
   }
 }

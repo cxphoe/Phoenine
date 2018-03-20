@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { getSafeContent } from '../../util'
+
 export default {
   name: 'CommentEditor',
 
@@ -63,13 +65,19 @@ export default {
 
   methods: {
     commentSubmit() {
+      let content = getSafeContent(this.content)
+      this.clearComment()
+
+      if (content === '') {
+        return
+      }
+
       let data = {
         date: new Date(),
-        content: this.content,
+        content,
         user: this.user,
       }
       this.$emit('submit', data)
-      this.clearComment()
       this.showAll = false
     },
 

@@ -32,9 +32,14 @@ const getBottomEdgeScreenTop = function (element) {
   return element.getBoundingClientRect().bottom
 }
 
-const getScrollTop = function() {
+const getScrollTop = function () {
   let t = document.documentElement || document.body.parentNode
   return (typeof t.scrollTop === 'number' ? t : document.body).scrollTop
+}
+
+const getSafeContent = function (text) {
+  let reg = /(<script.*><\/script>|<script.*\/>)/
+  return text.replace(reg, '')
 }
 
 export {
@@ -42,4 +47,5 @@ export {
   getAboveEdgeOffsetTop,
   getBottomEdgeScreenTop,
   getScrollTop,
+  getSafeContent,
 }
