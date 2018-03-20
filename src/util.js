@@ -38,7 +38,7 @@ const getScrollTop = function () {
 }
 
 const getSafeContent = function (text) {
-  let reg = /(<script.*><\/script>|<script.*\/>)/
+  let reg = /(<script.*>.*<\/script>|<script.*\/>)/
   return text.replace(reg, '')
 }
 
