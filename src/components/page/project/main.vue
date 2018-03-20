@@ -8,13 +8,18 @@
         </h1>
       </header>
       <div class="flex flex-row flex-wrap items-center">
-        <ph-tag
+        <el-tooltip
+          placement="top"
           v-for="(tag, index) in selectedTags"
           :key="index"
-          :content="tag"
-          @close="handleClose"
-          closable
-        ></ph-tag>
+          :content="`remove ${tag} filter`"
+        >
+          <ph-tag
+            :content="tag"
+            @close="handleClose"
+            closable
+          ></ph-tag>
+        </el-tooltip>
       </div>
     </div>
     <Loading size="xl" v-if="projects.length === 0"></Loading>
