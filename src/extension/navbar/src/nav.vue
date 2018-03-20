@@ -1,5 +1,5 @@
 <template>
-  <nav class="ph-navbar" :style="navStyle">
+  <nav class="ph-navbar">
     <slot></slot>
   </nav>
 </template>
@@ -7,10 +7,6 @@
 <script>
 export default {
   name: 'PhNav',
-
-  props: [
-    'navStyle',
-  ],
 }
 </script>
 

@@ -1,23 +1,13 @@
 <template>
 <div id="main-nav">
   <div class="ph-container">
-    <ph-nav>
+    <ph-nav dropdownHiddenUp="sm">
       <ph-nav-list hiddenUp="sm">
         <ph-nav-item>
-          <el-dropdown>
-            <el-button class="ph2 pv1 f4 gray6 bn">
-              <i class="fas fa-bars"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                v-for="(page, key) in pages"
-                :key=key>
-                <router-link
-                  :to="page.path" v-text="page.name"
-                ></router-link>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <span
+            class="f4 flex pointer"
+            @click="showDropdown = !showDropdown"
+          ><i class="fas fa-bars"></i></span>
         </ph-nav-item>
       </ph-nav-list>
 
@@ -28,11 +18,14 @@
       <ph-nav-list hiddenDown="sm" align="left" class="ml5 mt1">
         <ph-nav-item>
           <el-menu class="bn" mode="horizontal" router>
-            <el-menu-item class="f3" index="1-1" route="/project">
-              项目
-            </el-menu-item>
-            <el-menu-item class="f3" index="1-2" route="/article">
-              文章
+            <el-menu-item
+              v-for="(page, key) in pages"
+              :key="key"
+              :index="`1-${key}`"
+              :route="page.path"
+            >
+              <span v-html="page.prefix" class="v-align-none"></span>
+              <span class="ml1">{{ page.name }}</span>
             </el-menu-item>
           </el-menu>
         </ph-nav-item>
@@ -70,6 +63,30 @@
       </ph-nav-list>
     </ph-nav>
   </div>
+  <el-collapse-transition>
+    <div v-show="showDropdown" class="main-nav-dropdown">
+      <div
+        v-for="(page, index) in pages"
+        :key="index"
+        @click="showDropdown = false"
+      >
+        <router-link
+          class="nav-link"
+          :to="page.path"
+          exact-active-class="nav-router-active"
+        >
+          <span v-html="page.prefix"></span>
+          <span class="ml1">{{ page.name }}</span>
+        </router-link>
+      </div>
+      <div @click="showDropdown = false">
+        <a href="https://github.com/phoeninee" class="nav-link" target="_blank">
+          <i class="fab fa-github"></i>
+          <span class="ml1">Github</span>
+        </a>
+      </div>
+    </div>
+  </el-collapse-transition>
 </div>
 </template>
 
@@ -79,18 +96,22 @@ export default {
 
   data: function () {
     return {
+      showDropdown: false,
       logo: '/static/img/logo.png',
       pages: [
         {
           name: '主页',
+          prefix: '<i class="fas fa-home"></i>',
           path: '/',
         },
         {
           name: '项目',
+          prefix: '<i class="fas fa-terminal"></i>',
           path: '/project',
         },
         {
           name: '文章',
+          prefix: '<i class="fas fa-newspaper"></i>',
           path: '/article',
         },
       ],
@@ -111,5 +132,29 @@ export default {
   &:hover {
     color: $color-first;
   }
+}
+
+.main-nav-dropdown {
+  text-align: left;
+  font-size: .8rem;
+  background-color: #fff;
+}
+
+.nav-link {
+  display: block;
+  border-left: 3px solid transparent;
+  color: #868e96;
+  padding: .5rem 1rem;
+
+  &:hover {
+    text-decoration-line: none;
+    color: $color-first;
+    background-color: #fafbfc;
+  }
+}
+
+.nav-router-active {
+  background-color: #fafbfc;
+  border-left: 3px solid $color-first;
 }
 </style>
