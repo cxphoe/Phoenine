@@ -15,14 +15,14 @@
       :key="index"
       >
       <ProjectCard
-        v-bind="data"
+        :data="data"
       ></ProjectCard>
     </el-col>
   </IntroTemplate>
 </template>
 
 <script>
-import ProjectCard from '../card/project'
+import ProjectCard from '../card/project/main'
 import { generateIntroObj } from './util'
 import ErrorPage from '../utils/error_page'
 

@@ -6,6 +6,26 @@
         <h1 class="mt-0 mb-0 f5 fw6">
           All {{ projects.length }} projects
         </h1>
+        <div>
+          <el-tooltip placement="top" content="complete版本">
+            <el-button
+              class="p-pick-btn"
+              :class="{ 'p-pick-btn-active': mode === 'complete' }"
+              @click="mode = 'complete'"
+            >
+              <i class="fas fa-th"></i>
+            </el-button>
+          </el-tooltip>
+          <el-tooltip placement="top" content="simple版本">
+            <el-button
+              class="p-pick-btn"
+              :class="{ 'p-pick-btn-active': mode === 'simple' }"
+              @click="mode = 'simple'"
+            >
+              <i class="fas fa-th-list"></i>
+            </el-button>
+          </el-tooltip>
+        </div>
       </header>
       <div class="flex flex-row flex-wrap items-center">
         <el-tooltip
@@ -27,8 +47,9 @@
       <ProjectCard
         class="w-25-lg w-33-md w-50-sm w-100-xs"
         v-for="(data, index) in matchedProjects"
-        :key=index
-        v-bind=data
+        :key="index"
+        :data="data"
+        :mode="mode"
       ></ProjectCard>
     </section>
   </main>
@@ -36,10 +57,16 @@
 
 <script>
 import Loading from '../../utils/loading'
-import ProjectCard from '../../card/project'
+import ProjectCard from '../../card/project/main'
 
 export default {
   name: 'PageMain',
+
+  data() {
+    return {
+      mode: 'complete',
+    }
+  },
 
   props: {
     selectedTags: {
@@ -80,6 +107,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.p-pick-btn {
+  border: none;
+  padding: .1rem;
+  background-color: transparent;
+  font-size: 1.25rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.p-pick-btn-active {
+  color: $color-first;
+}
+
 @media screen and (min-width: 1330px) {
   .w-25-lg {
     width: 25%;

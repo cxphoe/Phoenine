@@ -38,7 +38,7 @@
             @click="reply"
             plain
           >
-            <i class="fas fa-reply"></i>&nbsp;回复
+            <i class="fas fa-edit"></i>&nbsp;回复
           </el-button>
         </template>
       </div>
@@ -169,9 +169,12 @@ $avatar-mr: .5rem;
       button {
         padding: 0;
         margin: 0;
-        margin-right: .5rem;
         border: none;
         font-size: .8rem;
+      }
+
+      button + button {
+        margin-left: .7rem;
       }
     }
   }
