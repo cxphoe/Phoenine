@@ -53,6 +53,10 @@ export default {
   opacity: 0;
 }
 
+.fade-move {
+  transition: transform .5s;
+}
+
 .project {
   margin-bottom:20px;
   align-items: center;

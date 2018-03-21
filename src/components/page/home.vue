@@ -12,36 +12,21 @@
 import ProjectIntro from '../intro/project'
 import ArticleIntro from '../intro/article'
 import { getAsyncProjectsIntro } from '../data.js'
+import articleDatabase from '../../database/article'
 
 export default {
   name: 'Home',
   data: function () {
     return {
       projects: getAsyncProjectsIntro(),
-      articles: [
-        {
-          title: 'CSAPP',
-          info: 'computer system from a programmer\'s prospective',
-          articleTags: [
-            'csapp', 'cs',
-          ],
-          updateDate: new Date(),
-        },
-        {
-          title: 'SICP',
-          info: 'solution of sicp',
-          articleTags: [
-            'sicp',
-          ],
-          updateDate: new Date(),
-        },
-      ],
+      articles: articleDatabase.database,
     }
   },
+
   components: {
     ProjectIntro,
     ArticleIntro,
-  }
+  },
 }
 </script>
 

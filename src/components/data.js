@@ -1,5 +1,5 @@
 import axios from 'axios'
-import marked from 'marked'
+import { toMarked } from '../util'
 
 const userName = 'phoeninee'
 
@@ -54,7 +54,7 @@ const getProjectDetail = function (repo, response) {
 
   axios.get(getContentUrl(name, readmePath))
     .then(resp => {
-      data.doc = marked(resp.data)
+      data.doc = toMarked(resp.data)
     })
     .catch(exception => {
       processException(exception, response)

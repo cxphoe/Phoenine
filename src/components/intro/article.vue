@@ -6,7 +6,7 @@
       slot="mobile"
       v-for="(data, index) in introSet"
       :key="index"
-      >
+    >
       <ArticleCard
         v-bind="data"
         class="mr4"
@@ -16,8 +16,9 @@
     <el-col
       class="shrink-xxs"
       v-for="(data, index) in introSet"
-      :sm="12" :xs="24"
-      :key="index">
+      :md="12" :sm="24"
+      :key="index"
+    >
       <ArticleCard
         v-bind="data"
       ></ArticleCard>
@@ -30,7 +31,7 @@ import ArticleCard from '../card/article'
 import { generateIntroObj } from './util'
 
 export default generateIntroObj({
-  name: 'HomeArticleIntro',
+  name: 'ArticleIntro',
 
   components: {
     ArticleCard,

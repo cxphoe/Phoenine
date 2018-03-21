@@ -2,7 +2,7 @@
   <div class="comment-list">
     <div class="comment-list-header">
       <span>{{ header }}</span>
-      <span class="f2 ml2 gray5">· {{ dataset.length }}条评论</span>
+      <span class="f2 ml2 gray5">· {{ dataset.commentAmount }}条评论</span>
     </div>
     <ul class="comment-list-body">
       <div id="__editor-ctn">
@@ -106,7 +106,7 @@ export default {
     },
 
     emptyCmtList() {
-      return this.dataset.length === 0
+      return this.dataset.commentAmount === 0
     }
   },
 

@@ -1,10 +1,11 @@
 <template>
   <button
     class="ph-tag"
-    :class="{ 'hover-bg-danger': closable }"
+    :class="classObj"
     type="button"
     :style="styleObj"
-    @click="handleClick">
+    @click="handleClick"
+  >
     {{ content }}
     <i v-if="closable" class="fas fa-times-circle"></i>
   </button>
@@ -14,6 +15,17 @@
 export default {
   name: 'PhTag',
 
+  data() {
+    return {
+      classObj: {
+        'ph-tag-default': !this.plain,
+        'ph-tag-round': this.round,
+        'ph-tag-plain': this.plain,
+        'hover-bg-danger': this.closable,
+      },
+    }
+  },
+
   props: {
     content: {
       type: String,
@@ -21,28 +33,45 @@ export default {
     },
     closable: Boolean,
     styleObj: Object,
+    plain: Boolean,
+    round: Boolean,
   },
 
   methods: {
     handleClick(event) {
       this.closable && this.$emit('close', this.content)
+      this.$emit('click', event)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+$tag-default-color: #495057;
+
 .ph-tag {
   cursor: pointer;
-  border-radius: 1rem;
-  border-style: none;
-  background-color: #495057;
-  color: white;
   font-weight: 600;
   font-size: .8rem;
   padding: .25rem .5rem;
   line-height: 1;
   margin-bottom: .25rem;
+}
+
+.ph-tag-default {
+  border-style: none;
+  color: white;
+  background-color: $tag-default-color;
+}
+
+.ph-tag-round {
+  border-radius: 1rem;
+}
+
+.ph-tag-plain {
+  border: 1px solid $tag-default-color;
+  background-color: transparent;
+  color: $tag-default-color;
 }
 
 .ph-tag + .ph-tag {
@@ -55,5 +84,7 @@ export default {
 
 .hover-bg-danger:hover {
   background-color: #fa5252;
+  color: #fff;
+  border-style: none;
 }
 </style>

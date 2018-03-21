@@ -1,23 +1,30 @@
 <template>
   <ph-card class="article" :bodyStyle="bodyStyle">
     <div slot="header">
-      <h5>{{ title }}</h5>
-      <div>
-        <i class="fas fa-tags"></i>
-        <ph-tag
-          class="ph-badge"
-          v-for="(tag, index) in articleTags"
-          :content="tag"
-          :key="index"
-        ></ph-tag>
-        <i class="fas fa-calendar-alt"></i>
-        <ph-tag class="ph-badge" :content="updatedAt"></ph-tag>
+      <div class="f4 fw6 mb1">{{ title }}</div>
+      <div class="article-intro-meta gray5">
+        <span class="flex items-center">
+          <i class="fas fa-tags"></i>
+          <ph-tag
+            class="article-tag"
+            v-for="(tag, index) in articleTags"
+            :content="tag"
+            :key="index"
+            plain
+            round
+          ></ph-tag>
+        </span>
+        <span>
+          <i class="fas fa-calendar-alt"></i>
+          {{ editedDate }}
+        </span>
       </div>
     </div>
     <div class="content">
-      <div class="text item">
-        {{ info }}
-      </div>
+      <div
+        class="text item markdown-body"
+        v-html="previewContent"
+      ></div>
       <div class="article-link">
         <a href="#">
           阅读全文
@@ -29,6 +36,8 @@
 </template>
 
 <script>
+import { toMarked, getFrontLines } from '../../util'
+
 export default {
   name: 'ArticleCard',
 
@@ -41,30 +50,43 @@ export default {
   },
 
   props: {
-    title: String,
-    info: {
+    title: {
+      type: String,
+      default: '--',
+    },
+    content: {
       type: String,
       default: '...',
     },
-    updateDate: {
+    editedAt: {
       type: Date,
       default: Date.now(),
     },
+    articleID: [Number, String],
     articleTags: {
       type: Array,
       default: function () {
         return []
       },
     },
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
 
   computed: {
-    updatedAt() {
-      let date = this.updateDate
+    editedDate() {
+      let date = this.editedAt
       let year = date.getFullYear()
       let month = date.getMonth() + 1
       let day = date.getDate()
       return `${year}/${month}/${day}`
+    },
+    previewContent() {
+      console.log(this.content)
+      let preview = getFrontLines(this.content, 10)
+      return toMarked(preview)
     },
   },
 }
@@ -74,12 +96,27 @@ export default {
 .article {
   margin-bottom: 10px;
 
-  .ph-badge {
+  .article-intro-meta {
+    display: flex;
     font-size: .7rem;
-    font-family: $font-display;
-    color: rgba($color-text, 0.5);
-    background-color: #f3f4f7;
-    margin-right: 2px;
+
+    & > span {
+      padding-right: .5rem;
+
+      & + span {
+        border-left: 1px solid #ccc;
+        padding-left: .5rem;
+      }
+    }
+  }
+
+  .article-tag {
+    font-size: .7rem;
+    padding: 0 .2rem;
+    margin: 0;
+    margin-left: 3px;
+    color: $color-gray5;
+    border-color: $color-gray5;
   }
 
   &:hover {

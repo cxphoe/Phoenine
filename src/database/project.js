@@ -1,9 +1,12 @@
-class ProjectDatabase {
+import CommentDatabase from './comment'
+
+class ProjectDatabase extends CommentDatabase {
   constructor() {
-    this.currentID = '10000'
+    super()
     this.database = {
       'Phoenine': {
-        length: 4,
+        commentCurID: 4,
+        commentAmount: 4,
         comments: {
           '1': {
             user: 'phoenine',
@@ -20,7 +23,7 @@ class ProjectDatabase {
             user: '李四',
             replyTargetID: '2',
             content: '真的还行吗？',
-            createdAt: new Date(2018, 2, 10),
+            createdAt: new Date(2018, 2, 10, 1, 3, 30),
           },
           '4': {
             user: 'bob',
@@ -32,53 +35,6 @@ class ProjectDatabase {
       },
     }
   }
-
-  static instance(...args) {
-    return new this(...args)
-  }
-
-  nextAvailableID() {
-    this.currentID = (++this.currentID).toString()
-    return this.currentID
-  }
-
-  addComment(projectName, options) {
-    let ds = this.getDataset(projectName)
-    let cmts = ds.comments
-    let ID = this.nextAvailableID()
-    let targetID = options.replyTargetID
-
-    let data = {
-      user: options.user || ID,
-      content: options.content,
-      createdAt: options.date,
-    }
-
-    if (targetID) {
-      data.replyTargetID = targetID
-      let rs = cmts[targetID].replys
-      rs ? rs.push(ID) : (cmts[targetID].replys = [ID])
-    }
-    cmts[ID] = data
-    ds.length++
-  }
-
-  getDataset(projectName) {
-    return this.database[projectName]
-      || this.createDataset(projectName)
-  }
-
-  createDataset(projectName) {
-    let ds = this.database[projectName] = {
-      length: 0,
-      comments: {},
-    }
-    return ds
-  }
 }
 
-const projectDatabase = ProjectDatabase.instance()
-
-export {
-  projectDatabase,
-}
+export default ProjectDatabase.instance()

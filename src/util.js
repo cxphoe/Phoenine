@@ -1,3 +1,19 @@
+import marked from 'marked'
+
+const toMarked = function (text) {
+  return marked(text)
+}
+
+const getFrontLines = function (text, lines) {
+  let maxIndex = text.length
+  for (var index = 0; lines > 0 && index < maxIndex; index++) {
+    if (text[index] === '\n') {
+      lines--
+    }
+  }
+  return text.substring(0, index)
+}
+
 const isMobile = function () {
   // 判断是否为移动端
   const ua = navigator.userAgent
@@ -43,6 +59,8 @@ const getSafeContent = function (text) {
 }
 
 export {
+  toMarked,
+  getFrontLines,
   isMobile,
   getAboveEdgeOffsetTop,
   getBottomEdgeScreenTop,

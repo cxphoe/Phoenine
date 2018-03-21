@@ -1,18 +1,11 @@
 import Loading from '../utils/loading'
 import IntroTemplate from './tmpl'
-import { isMobile } from '../../util'
 
 const generateIntroObj = function (options) {
   let components = {
     Loading,
     IntroTemplate,
     ...options.components,
-  }
-
-  let data = function () {
-    return {
-      isMobile: isMobile(),
-    }
   }
 
   let props = {
@@ -38,7 +31,6 @@ const generateIntroObj = function (options) {
   return {
     name: options.name,
     components,
-    data,
     props,
     computed,
   }

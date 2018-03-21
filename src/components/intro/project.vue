@@ -6,14 +6,14 @@
       slot="mobile"
       class="mr4"
       v-for="(data, index) in introSet"
-      v-bind="data"
+      :data="data"
       :key="index"
     ></ProjectCard>
     <el-col
       v-for="(data, index) in introSet"
       :xs="24" :sm="12" :md="8" :lg="6"
       :key="index"
-      >
+    >
       <ProjectCard
         :data="data"
       ></ProjectCard>
@@ -27,7 +27,7 @@ import { generateIntroObj } from './util'
 import ErrorPage from '../utils/error_page'
 
 export default generateIntroObj({
-  name: 'HomeProjectIntro',
+  name: 'ProjectIntro',
 
   components: {
     ProjectCard,

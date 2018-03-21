@@ -48,7 +48,7 @@
 
 <script>
 import CommentEditor from './editor'
-import marked from 'marked'
+import { toMarked } from '../../util'
 
 export default {
   name: 'Comment',
@@ -99,7 +99,7 @@ export default {
     },
 
     markedContent() {
-      return marked(this.content)
+      return toMarked(this.content)
     },
   },
 

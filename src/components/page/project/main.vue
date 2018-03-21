@@ -38,6 +38,7 @@
             :content="tag"
             @close="handleClose"
             closable
+            round
           ></ph-tag>
         </el-tooltip>
       </div>

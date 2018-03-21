@@ -18,20 +18,31 @@
             <ph-tag
               :content="detail.lang"
               :styleObj="{ marginLeft: '10px', fontSize: '.7em' }"
+              round
             ></ph-tag>
           </div>
           <span class="gray6"> {{ detail.description }}</span>
         </div>
         <div class="flex items-center ml-auto mt2 pl4">
           <a
-            class="link f2 b-gray4 pv1 ph2 br1 btn-depth"
+            class="link project-btn"
             :href="detail.url"
-          ><i class="fab fa-github"></i>&nbsp;源地址</a>
+          >
+            <span class="ph-btn-icon">
+              <i class="fab fa-github-alt"></i>
+            </span>
+            <span>源地址</span>
+          </a>
           <a
-            class="link f2 b-gray4 pv1 ph2 br1 btn-depth"
+            class="link project-btn"
             v-if="detail.homePage"
             :href="detail.homePage"
-          ><i class="fas fa-eye"></i>&nbsp;Demo</a>
+          >
+            <span class="ph-btn-icon">
+              <i class="fas fa-eye"></i>
+            </span>
+            <span>Demo</span>
+          </a>
         </div>
       </header>
       <main class="main bg-white">
@@ -56,7 +67,7 @@
 import { getAsyncProjectDetail } from '../data'
 import ErrorPage from '../utils/error_page'
 import CommentList from '../comment/list'
-import { projectDatabase } from '../../database/project'
+import projectDatabase from '../../database/project'
 
 export default {
   name: 'ProjectInstance',
@@ -149,6 +160,10 @@ export default {
 
 .link + .link {
   margin-left: .5rem;
+}
+
+.project-btn {
+  @include ph-btn($color-first, #fff);
 }
 
 .project-container {

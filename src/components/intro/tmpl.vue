@@ -5,13 +5,12 @@
         <p class="mr-auto gray7 f4 fw6 mv3">
           <slot name="header"></slot>
         </p>
-        <el-button
-          class="fw6 br2 pv2 ph2 f2"
-          type="primary"
+        <button
+          class="intro-btn"
           @click="handleClick(link)">
-          <span>查看更多</span>
+          <span class="mr2">查看更多</span>
           <i class="fas fa-angle-double-right"></i>
-        </el-button>
+        </button>
       </nav>
     </div>
     <div v-if="isMobile" class="flex of-auto ph5 pv2">
@@ -51,3 +50,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.intro-btn {
+  border: none;
+  @include ph-btn2();
+}
+</style>
