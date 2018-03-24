@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray0">
+  <div class="intro-tmpl">
     <div class="ph-container">
       <nav class="ph-navbar">
         <p class="mr-auto gray7 f4 fw6 mv3">
@@ -8,7 +8,7 @@
         <button
           class="intro-btn"
           @click="handleClick(link)">
-          <span class="mr2">查看更多</span>
+          <span class="mr2">更多</span>
           <i class="fas fa-angle-double-right"></i>
         </button>
       </nav>
@@ -54,6 +54,22 @@ export default {
 <style lang="scss" scoped>
 .intro-btn {
   border: none;
-  @include ph-btn2();
+  @include ph-btn2($init-width: 35%, $end-width: 50%);
+}
+
+.intro-tmpl {
+  background-color: #fafbfc;
+  position: relative;
+
+  & + & {
+    &:before {
+      position: absolute;
+      width: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom: .25rem solid #e9ecef;
+      content: '';
+    }
+  }
 }
 </style>

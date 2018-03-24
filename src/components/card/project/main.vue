@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="fade-slide">
     <div class="project">
       <ProjectCompleteCard
         v-if="safeMode === 'complete'"
@@ -45,15 +45,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-slide-enter-active, .fade-slide-leave-active {
+  transition: all .5s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-slide-enter, .fade-slide-leave-to {
+  transform: translateY(-5px);
   opacity: 0;
 }
 
-.fade-move {
+.fade-slide-move {
   transition: transform .5s;
 }
 
@@ -65,6 +66,7 @@ export default {
     width: 16rem;
     margin: auto;
     border-color: transparent;
+    border-radius: 10px;
     box-shadow: 0 5px 20px 1px #cccccc7e;
 
     &:hover {

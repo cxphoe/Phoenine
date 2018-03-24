@@ -4,6 +4,7 @@ import Home from '../components/page/home'
 import Login from '../components/page/login/main'
 import ProjectPage from '../components/page/project/index'
 import ProjectDatail from '../components/detail/project'
+import ArticlePage from '../components/page/article/index'
 
 Vue.use(Router)
 
@@ -28,6 +29,10 @@ export default new Router({
     {
       path: '/project/:name',
       component: ProjectDatail,
+    },
+    {
+      path: '/article',
+      component: ArticlePage,
     },
   ],
 })

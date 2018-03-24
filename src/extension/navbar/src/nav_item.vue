@@ -1,32 +1,52 @@
+<template>
+  <li
+    class="ph-nav-item"
+    :class="[
+      { 'ph-nav-item-active': active },
+      ...hiddenClass,
+    ]"
+    @click="handleClick"
+  >
+    <slot></slot>
+  </li>
+</template>
+
 <script>
 import navMixin from './nav_mixin'
 
 export default {
   name: 'PhNavItem',
 
+  componentName: 'PhNavItem',
+
   mixins: [navMixin],
 
-  props: {
-    // margin-left
-    left: Number,
-    // margin-right
-    right: Number,
+  data() {
+    return {
+      active: false,
+    }
   },
 
-  render(h) {
-    let style = {}
-    let marginProps = ['left', 'right']
-
-    marginProps.forEach(prop => {
-      if (this[prop]) {
-        style['margin-' + prop] = this[prop] + 'px'
-      }
-    })
-
-    return h('li', {
-      class: [...this.hiddenClass],
-      style,
-    }, this.$slots.default)
-  }
+  methods: {
+    handleClick() {
+      this.$parent.forceCancel(this)
+      this.active = true
+    },
+    forceCancel() {
+      this.active = false
+    },
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+.ph-nav-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  & + & {
+    margin-left: 10px;
+  }
+}
+</style>

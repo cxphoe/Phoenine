@@ -31,7 +31,12 @@
   }
 }
 
-@mixin ph-btn2($color: #52aac1, $text-color: #fff) {
+@mixin ph-btn2(
+  $color: #52aac1,
+  $text-color: #fff,
+  $init-width: 30%,
+  $end-width: 40%
+) {
   padding: .5rem;
   font-size: .8rem;
   border-radius: .25rem;
@@ -52,7 +57,7 @@
     position: absolute;
     transition: all 0.3s;
 
-    width: 30%;
+    width: $init-width;
     height: 200%;
     background: rgba(255,255,255,0.2);
     z-index: 1;
@@ -68,7 +73,7 @@
     background-color: $color;
 
     &:after {
-      width: 40%;
+      width: $end-width;
     }
   }
 

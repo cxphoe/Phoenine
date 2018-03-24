@@ -21,7 +21,7 @@
           :key="index"
         >
           <router-link
-            class="ph-nav-link f2"
+            class="nav-link f2"
             exact-active-class="nav-router-active"
             :to="page.path"
           >
@@ -34,7 +34,7 @@
       <ph-nav-list>
         <ph-nav-item hiddenDown="sm">
           <el-dropdown class="v-middle f3 mr3">
-            <span class="el-dropdown-link">
+            <span class="el-dropdown-link pointer">
               Contact<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -71,7 +71,7 @@
         @click="showDropdown = false"
       >
         <router-link
-          class="nav-link"
+          class="subnav-link"
           :to="page.path"
           exact-active-class="subnav-router-active"
         >
@@ -80,7 +80,7 @@
         </router-link>
       </div>
       <div @click="showDropdown = false">
-        <a href="https://github.com/phoeninee" class="nav-link" target="_blank">
+        <a href="https://github.com/phoeninee" class="subnav-link" target="_blank">
           <i class="fab fa-github"></i>
           <span class="ml1">Github</span>
         </a>
@@ -141,6 +141,19 @@ export default {
 }
 
 .nav-link {
+  display: block;
+  color: rgba(0, 0, 0, .5);
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 3px solid transparent;
+
+  &:hover {
+    color: $color-first;
+    text-decoration: none;
+  }
+}
+
+.subnav-link {
   display: block;
   border-left: 3px solid transparent;
   color: #868e96;

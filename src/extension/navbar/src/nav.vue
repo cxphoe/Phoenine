@@ -7,6 +7,20 @@
 <script>
 export default {
   name: 'PhNav',
+
+  data() {
+    return {
+      styleObj: {
+        'border-bottom': this.type === 'card'
+          ? '1px solid #ddd'
+          : '',
+      },
+    }
+  },
+
+  porps: {
+    type: String,
+  },
 }
 </script>
 
@@ -29,24 +43,5 @@ export default {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
-}
-
-$nav-link-color: #52aac1;
-
-.ph-nav-link {
-  display: block;
-  margin-top: auto;
-  margin-bottom: auto;
-  color: hsla(0, 0, 0, 0.4);
-  font-weight: bold;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 3px solid transparent;
-  border-radius: 3px;
-
-  &:hover {
-    text-decoration: none;
-    color: hsla(0, 0, 0, 0.7);
-    border-bottom: 3px solid $nav-link-color;
-  }
 }
 </style>

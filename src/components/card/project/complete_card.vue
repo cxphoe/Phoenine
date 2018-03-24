@@ -125,10 +125,12 @@ export default {
   top: 25px;
 }
 
-.project-header span {
-  width: 100%;
-  font-family: $font-display;
-  position: absolute;
+.project-header {
+  span {
+    width: 100%;
+    font-family: $font-display;
+    position: absolute;
+  }
 }
 
 .project-card-info {
