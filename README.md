@@ -42,10 +42,25 @@
 2. checkbox
 	1. singleton
 	2. group
-3. navbar
-	1. list
-	2. item
-4. tag
+3. collapse
+	1. collapse
+	2. collapse-item
+4. icon
+	1. arrow-icon
+	2. menu-icon
+5. navbar
+	1. nav
+	2. list
+	3. item
+6. sidebar
+	1. sidebar
+	2. sidebar-divider
+	3. sidebar-item
+	4. sidebar-list
+7. tabs
+	1. tabs
+	2. tab-pane
+8. tag
 
 ## Features
 

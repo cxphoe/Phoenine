@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="head">
-      <img alt="Phoenine" src="static/img/bg.png">
-    </div>
     <ProjectIntro :dataset=projects :showAmount=4></ProjectIntro>
     <ArticleIntro :dataset=articles :showAmount=4></ArticleIntro>
   </div>

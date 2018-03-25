@@ -16,7 +16,7 @@
         </span>
         <span>
           <i class="fas fa-calendar-alt"></i>
-          {{ editedAt.toLocaleString() }}
+          {{ editedAt.toLocaleDateString() }}
         </span>
       </div>
     </div>

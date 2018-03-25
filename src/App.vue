@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Nav />
+    <Nav/>
     <transition name="fade-slide" mode="out-in">
       <router-view/>
     </transition>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Nav from './components/nav'
+import Nav from './components/sidebar'
 
 export default {
   name: 'App',
