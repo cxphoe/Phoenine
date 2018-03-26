@@ -72,16 +72,21 @@ export default {
   },
 
   mounted() {
-    this.slotsHeight = this.$slots.default.reduce((sum, cur) => {
-      let size = cur.elm.offsetHeight || 0
-      return sum + size
-    }, 0) + 'px'
+    let d = this.$slots.default
+    this.slotsHeight = d === undefined
+      ? 0
+      : d.reduce((sum, cur) => {
+        let size = cur.elm.offsetHeight || 0
+        return sum + size
+      }, 0) + 'px'
   },
 }
 </script>
 
 <style lang="scss">
 .ph-collapse-item {
+  position: relative;
+
   .__collapse-title {
     cursor: pointer;
     user-select: none;

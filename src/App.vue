@@ -2,12 +2,12 @@
   <div id="app">
     <div id="top"></div>
     <Sidebar/>
-    <transition-group name="fade-slide">
-      <main class="app-main" key="1">
+    <main class="app-main">
+      <transition name="fade-slide">
         <router-view/>
-      </main>
-      <Footer key="2"/>
-    </transition-group>
+      </transition>
+    </main>
+    <Footer/>
   </div>
 </template>
 

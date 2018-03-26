@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '../components/page/home'
 import Login from '../components/page/login/main'
 import RepositoryPage from '../components/page/repository/index'
-import ArticlePage from '../components/page/article/index'
+import ArticlePage from '../components/page/article'
 
 Vue.use(Router)
 
@@ -12,22 +12,29 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home,
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login,
     },
     {
-      path: '/project',
-      name: 'RepositoryPage',
+      path: '/repository',
+      name: 'repository',
       component: RepositoryPage,
     },
     {
       path: '/article',
+      name: 'article',
       component: ArticlePage,
+      children: [
+        {
+          path: ':type',
+          component: ArticlePage,
+        },
+      ],
     },
   ],
 })

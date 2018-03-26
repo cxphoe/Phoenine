@@ -3,6 +3,7 @@
     <div
       slot="media"
       class="article-title"
+      :style="{ backgroundImage: 'url(' + img + ')' }"
     >
       <a
         class="text-gray0-shadow-b4 link"
@@ -19,6 +20,7 @@
         <ph-tag
           class="article-category lh-title"
           :content="category"
+          @click="handleTagClick(category)"
           round
           plain
         ></ph-tag>
@@ -34,6 +36,7 @@ export default {
   name: 'ArticleCard',
 
   props: {
+    img: String,
     title: {
       type: String,
       default: '--',
@@ -43,8 +46,8 @@ export default {
       default: '...',
     },
     editedAt: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      default: '1970-1-1',
     },
     articleID: [Number, String],
     articleTags: {
@@ -63,14 +66,18 @@ export default {
   computed: {
     editedDate() {
       let date = this.editedAt
-      let year = date.getFullYear()
-      let month = date.getMonth() + 1
-      let day = date.getDate()
+      let [ year, month, day ] = date.split('-')
       return `${month}月 ${day < 10 ? '0' + day : day}, ${year}`
     },
 
     preview() {
       return getFrontLines(this.content, 1)
+    },
+  },
+
+  methods: {
+    handleTagClick(category) {
+      this.$router.push(`/article/category?name=${category}`)
     },
   },
 }
@@ -82,11 +89,15 @@ export default {
   min-height: 25pc;
 
   & + & {
-    margin-bottom: 20px;
+    margin-top: 3rem;
   }
 
   .article-title {
     font-size: 34px;
+
+    @media screen and (max-width: 840px) {
+      font-size: 22px;
+    }
   }
 
   .article-meta {

@@ -6,9 +6,10 @@ class ArticleDatabase extends CommentDatabase {
     this.currentID = 1
     this.database = [
       {
+        img: '/static/img/bg4.jpg',
         articleID: 1,
         title: 'Phoenine博客网站',
-        editedAt: new Date(2018, 1, 30, 3, 5),
+        editedAt: '2018-2-28',
         views: 0,
         articleTags: ['vue', 'elementUI'],
         category: '技术',
@@ -47,6 +48,31 @@ class ArticleDatabase extends CommentDatabase {
         commentAmount: 0,
         comments: {},
       },
+      {
+        img: '/static/img/bg3.jpg',
+        articleID: 1,
+        title: 'Phoenine博客网站',
+        editedAt: '2018-3-25',
+        views: 0,
+        articleTags: ['scss', 'vue'],
+        category: '项目',
+        content: `> A Vue.js project
+        
+        通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
+        
+        ## Vue Router
+        
+        通过 Vue Router 开发导航栏。
+        
+        ## CSS
+        
+        利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
+        
+        将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:`,
+        commentCurID: 0,
+        commentAmount: 0,
+        comments: {},
+      },
     ]
   }
 
@@ -73,6 +99,60 @@ class ArticleDatabase extends CommentDatabase {
       if (key in ds) {
         ds[key] = data[key]
       }
+    }
+  }
+
+  getDatabaseStat() {
+    const archiveStat = {}
+    const categoryStat = {}
+    const tagStat = {}
+
+    this.database.forEach(a => {
+      let c = a.category
+      categoryStat[c] = c in categoryStat
+        ? categoryStat[c] + 1
+        : 1
+
+      let ts = a.articleTags
+      ts.forEach(t => {
+        tagStat[t] = t in tagStat
+          ? tagStat[t] + 1
+          : 1
+      })
+
+      let d = a.editedAt.split('-')
+      let year = d[0]
+      let month = d[1]
+      let yearArchive = archiveStat[year]
+      if (yearArchive) {
+        yearArchive[month] = month in yearArchive
+          ? yearArchive[month] + 1
+          : 1
+      } else {
+        archiveStat[year] = {}
+        archiveStat[year][month] = 1
+      }
+    })
+
+    let aStat = []
+    for (let year in archiveStat) {
+      let yearArchive = archiveStat[year]
+      for (let month in yearArchive) {
+        aStat.push([[year, month], yearArchive[month]])
+      }
+    }
+    aStat.sort((x, y) => {
+      let [ year1, month1 ] = x[0]
+      let [ year2, month2 ] = y[0]
+      return year1 === year2
+        ? month2 - month1
+        : year2 - year1
+    })
+
+    return {
+      archiveStat: aStat,
+      categoryStat,
+      tagStat,
     }
   }
 }

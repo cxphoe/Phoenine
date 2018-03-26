@@ -27,7 +27,7 @@
         </div>
       </ph-card>
     </header>
-    <RepositoryIntro :dataset=repositorys :showAmount=4></RepositoryIntro>
+    <RepositoryIntro :dataset=repositories :showAmount=4></RepositoryIntro>
     <ArticleIntro :dataset=articles :showAmount=4></ArticleIntro>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default {
   data: function () {
     return {
       imgs,
-      repositorys: getAsyncReposIntro(),
+      repositories: getAsyncReposIntro(),
       articles: articleDatabase.database,
     }
   },

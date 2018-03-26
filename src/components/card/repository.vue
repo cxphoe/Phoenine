@@ -177,10 +177,10 @@ export default {
     content: "";
     display: block;
     top: 0;
-    right: .5rem;
+    right: 0;
     height: 100%;
     position: absolute;
-    box-shadow: 0 0 50px 25px #fff;
+    box-shadow: 0 0 50px 30px #fff;
   }
 }
 
