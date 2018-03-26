@@ -33,9 +33,19 @@
 }
 
 .lh-title {
-  line-height: 1.25;
+  line-height: 1.25 !important;
 }
 
 .lh-solid {
   line-height: 1;
+}
+
+.text-gray0-shadow-b4 {
+  color: #fafbfc;
+  line-height: 1;
+  text-shadow: 1px 1px 8px #444;
+
+  &:hover {
+    color: #fafbfc;
+  }
 }

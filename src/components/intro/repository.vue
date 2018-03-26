@@ -1,36 +1,34 @@
 <template>
-  <div class="article-intro">
+  <div class="repository-intro slim-scrollbar">
     <Loading size="xl" v-if="dataset.length === 0"></Loading>
-    <ArticleCard
+    <RepositoryCard
+      class="mr3"
       v-for="(data, index) in introSet"
       v-bind="data"
       :key="index"
-    ></ArticleCard>
+    ></RepositoryCard>
   </div>
 </template>
 
 <script>
-import ArticleCard from '../card/article'
+import RepositoryCard from '../card/repository'
 import { generateIntroObj } from './util'
+import ErrorPage from '../utils/error_page'
 
 export default generateIntroObj({
-  name: 'ArticleIntro',
+  name: 'RepositoryIntro',
 
   components: {
-    ArticleCard,
+    RepositoryCard,
+    ErrorPage,
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.article-intro {
+.repository-intro {
   margin: 1.5rem .5rem;
-}
-
-@media screen and (max-width: 575px) {
-  .shrink-xxs {
-    width: 95%;
-    margin-left: 2.5%;
-  }
+  display: flex;
+  overflow: auto;
 }
 </style>

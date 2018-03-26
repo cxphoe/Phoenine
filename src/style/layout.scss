@@ -71,3 +71,13 @@
 .w-auto {
   width: auto;
 }
+
+.meta {
+  display: flex;
+  box-sizing: border-box;
+  padding: 1pc;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}

@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/page/home'
 import Login from '../components/page/login/main'
-import ProjectPage from '../components/page/project/index'
-import ProjectDatail from '../components/detail/project'
+import RepositoryPage from '../components/page/repository/index'
 import ArticlePage from '../components/page/article/index'
 
 Vue.use(Router)
@@ -23,12 +22,8 @@ export default new Router({
     },
     {
       path: '/project',
-      name: 'ProjectPage',
-      component: ProjectPage,
-    },
-    {
-      path: '/project/:name',
-      component: ProjectDatail,
+      name: 'RepositoryPage',
+      component: RepositoryPage,
     },
     {
       path: '/article',

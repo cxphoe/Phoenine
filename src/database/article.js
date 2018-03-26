@@ -11,6 +11,7 @@ class ArticleDatabase extends CommentDatabase {
         editedAt: new Date(2018, 1, 30, 3, 5),
         views: 0,
         articleTags: ['vue', 'elementUI'],
+        category: '技术',
         content: `# Phoenine
 
         > A Vue.js project

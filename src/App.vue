@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <Nav/>
-    <transition name="fade-slide" mode="out-in">
-      <router-view/>
-    </transition>
+    <div id="top"></div>
+    <Sidebar/>
+    <transition-group name="fade-slide">
+      <main class="app-main" key="1">
+        <router-view/>
+      </main>
+      <Footer key="2"/>
+    </transition-group>
   </div>
 </template>
 
 <script>
-import Nav from './components/sidebar'
+import Sidebar from './components/sidebar'
+import Footer from './components/footer'
 
 export default {
   name: 'App',
   components: {
-    Nav,
+    Sidebar,
+    Footer,
   },
 }
 </script>
@@ -36,6 +42,18 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color-text;
+  background-color: #e9eaeb;
+
+  .app-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 10rem;
+    padding-top: 10rem;
+
+    @media screen and (max-width: 670px) {
+      padding-top: 0;
+    }
+  }
 }
 
 body {

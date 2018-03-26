@@ -4,12 +4,13 @@
     class="slim-scrollbar"
     @aside-click="handleClick"
     @item-click="handleClick"
+    closable
     cover
   >
     <div class="sidebar-header">
-      <img src="/static/img/bg1.jpg">
-      <div class="sidebar-header-avatar">
-        <img src="/static/img/avatar.jpg">
+      <img :src="imgs.header">
+      <div class="avatar sidebar-header-avatar">
+        <img :src="imgs.avatar">
       </div>
     </div>
     <ph-sidebar-list>
@@ -101,11 +102,19 @@
 </template>
 
 <script>
+import { imgPaths } from '../config'
+
+const imgs = {
+  header: imgPaths.sidebar,
+  avatar: imgPaths.avatar,
+}
+
 export default {
   name: 'Sidebar',
 
   data() {
     return {
+      imgs,
       activeCollapse: '',
       pages: [
         {
@@ -163,18 +172,13 @@ $avatar-width: 3.2rem;
 
   .sidebar-header-avatar {
     position: absolute;
-    border-radius: 50%;
     width: $avatar-width;
     height: $avatar-width;
-    overflow: hidden;
     top: 1.3rem;
     right: 2rem;
 
     img {
-      position: relative;
       height: $avatar-width;
-      left: 50%;
-      transform: translateX(-50%);
     }
   }
 }

@@ -1,10 +1,8 @@
 import Loading from '../utils/loading'
-import IntroTemplate from './tmpl'
 
 const generateIntroObj = function (options) {
   let components = {
     Loading,
-    IntroTemplate,
     ...options.components,
   }
 

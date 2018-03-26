@@ -4,7 +4,7 @@
       <header class="flex flex-column flex-row-ns justify-between-ns
         items-center-ns bb bw2 b-gray2 pb3 mb3">
         <h1 class="mt-0 mb-0 f5 fw6">
-          All {{ projects.length }} projects
+          All {{ repos.length }} repositorys
         </h1>
         <div>
           <el-tooltip placement="top" content="complete版本">
@@ -43,22 +43,21 @@
         </el-tooltip>
       </div>
     </div>
-    <Loading size="xl" v-if="projects.length === 0"></Loading>
+    <Loading size="xl" v-if="repos.length === 0"></Loading>
     <section class="flex flex-row ma0 pa0 flex-wrap">
-      <ProjectCard
+      <RepositoryCard
         class="w-25-lg w-33-md w-50-sm w-100-xs"
         v-for="(data, index) in matchedProjects"
+        v-bind="data"
         :key="index"
-        :data="data"
-        :mode="mode"
-      ></ProjectCard>
+      ></RepositoryCard>
     </section>
   </main>
 </template>
 
 <script>
 import Loading from '../../utils/loading'
-import ProjectCard from '../../card/project/main'
+import RepositoryCard from '../../card/repository'
 
 export default {
   name: 'PageMain',
@@ -75,7 +74,7 @@ export default {
       required: true,
     },
 
-    projects: {
+    repos: {
       type: Array,
       required: true,
     },
@@ -85,12 +84,12 @@ export default {
     matchedProjects() {
       let tags = this.selectedTags
       return tags.length
-        ? this.projects.filter(p => {
+        ? this.repos.filter(p => {
           return tags.every(tag => {
             return p.tags.indexOf(tag) >= 0
           })
         })
-        : this.projects
+        : this.repos
     },
   },
 
@@ -102,7 +101,7 @@ export default {
 
   components: {
     Loading,
-    ProjectCard,
+    RepositoryCard,
   },
 }
 </script>

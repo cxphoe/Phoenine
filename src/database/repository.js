@@ -1,6 +1,6 @@
 import CommentDatabase from './comment'
 
-class ProjectDatabase extends CommentDatabase {
+class RepoDatabase extends CommentDatabase {
   constructor() {
     super()
     this.database = {
@@ -37,4 +37,4 @@ class ProjectDatabase extends CommentDatabase {
   }
 }
 
-export default ProjectDatabase.instance()
+export default RepoDatabase.instance()

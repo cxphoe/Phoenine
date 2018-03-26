@@ -52,13 +52,6 @@ export default {
 
 <style lang="scss">
 .p-aside {
-  width: 16rem;
   background-color: $color-light;
-}
-
-@media screen and (max-width: 1046px) {
-  .hidden {
-    display: none;
-  }
 }
 </style>

@@ -20,7 +20,7 @@ const processException = function (exception, response) {
   response.statusText = isError ? '你访问的资源不存在' : exception.statusText
 }
 
-const getProjectIntro = function (repo) {
+const getRepoIntro = function (repo) {
   let projectData = {
     tags: [],
     name: repo.name,
@@ -42,7 +42,7 @@ const getProjectIntro = function (repo) {
   return projectData
 }
 
-const getProjectDetail = function (repo, response) {
+const getRepoDetail = function (repo, response) {
   let data = response.data
   let name = repo.name
   data.description = repo.description
@@ -50,7 +50,7 @@ const getProjectDetail = function (repo, response) {
   data.lang = repo.language
   data.url = repo.html_url
   data.homePage = repo.homepage
-  response.isProject = repo.has_pages
+  response.isRepo = repo.has_pages
 
   axios.get(getContentUrl(name, readmePath))
     .then(resp => {
@@ -61,25 +61,23 @@ const getProjectDetail = function (repo, response) {
     })
 }
 
-const getAsyncProjectsIntro = function () {
+const getAsyncReposIntro = function () {
   let dataset = []
   axios.get(repoPath)
     .then((response) => {
       response.data.forEach((repo) => {
-        if (repo.has_pages) {
-          dataset.push(getProjectIntro(repo))
-        }
+        dataset.push(getRepoIntro(repo))
       })
     })
   return dataset
 }
 
-const getAsyncProjectDetail = function (name) {
+const getAsyncRepoDetail = function (name) {
   let response = {
     // 初始化数据
     status: '',
     statusText: '',
-    isProject: '',
+    isRepo: '',
     data: {
       name,
       logo: '',
@@ -93,7 +91,7 @@ const getAsyncProjectDetail = function (name) {
 
   axios.get(path)
     .then(resp => {
-      getProjectDetail(resp.data, response)
+      getRepoDetail(resp.data, response)
     })
     .catch(exception => {
       processException(exception, response)
@@ -103,6 +101,6 @@ const getAsyncProjectDetail = function (name) {
 }
 
 export {
-  getAsyncProjectsIntro,
-  getAsyncProjectDetail,
+  getAsyncReposIntro,
+  getAsyncRepoDetail,
 }
