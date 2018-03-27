@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { toMarked } from '../util'
+import { toMarked } from '../utils/article'
 
 const userName = 'phoeninee'
 

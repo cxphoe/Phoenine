@@ -26,11 +26,4 @@ export default generateIntroObj({
 .article-intro {
   margin: 1.5rem .5rem;
 }
-
-@media screen and (max-width: 575px) {
-  .shrink-xxs {
-    width: 95%;
-    margin-left: 2.5%;
-  }
-}
 </style>

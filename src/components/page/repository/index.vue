@@ -1,5 +1,5 @@
 <template>
-  <div class="center flex flex-row bg-gray0 relative ofx-hidden">
+  <div class="center flex flex-row bg-gray0 ofx-hidden">
     <ph-sidebar closable cover>
       <ph-sidebar-icon slot="icon" class="repo-page-icon">
         <i class="fas fa-list"></i>

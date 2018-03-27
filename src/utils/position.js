@@ -1,30 +1,3 @@
-import marked from 'marked'
-
-const toMarked = function (text) {
-  return marked(text)
-}
-
-const getFrontLines = function (text, lines) {
-  let maxIndex = text.length
-  for (var index = 0; lines > 0 && index < maxIndex; index++) {
-    if (text[index] === '\n') {
-      lines--
-    }
-  }
-  return text.substring(0, index)
-}
-
-const isMobile = function () {
-  // 判断是否为移动端
-  const ua = navigator.userAgent
-  const android = /Android (\d+\.\d+)/.test(ua)
-  const iphone = ua.indexOf('iPhone') > -1
-  const ipod = ua.indexOf('iPod') > -1
-  const ipad = ua.indexOf('iPad') > -1
-  const nokiaN = ua.indexOf('NokiaN') > -1
-  return android || iphone || ipod || ipad || nokiaN
-}
-
 // 得到元素上边距离顶部的 offsetTop
 const getAboveEdgeOffsetTop = function (element) {
   if (!(element instanceof HTMLElement)) {
@@ -53,17 +26,8 @@ const getScrollTop = function () {
   return (typeof t.scrollTop === 'number' ? t : document.body).scrollTop
 }
 
-const getSafeContent = function (text) {
-  let reg = /(<script.*>.*<\/script>|<script.*\/>)/
-  return text.replace(reg, '')
-}
-
 export {
-  toMarked,
-  getFrontLines,
-  isMobile,
   getAboveEdgeOffsetTop,
   getBottomEdgeScreenTop,
   getScrollTop,
-  getSafeContent,
 }

@@ -6,78 +6,84 @@ class ArticleDatabase extends CommentDatabase {
     this.currentID = 1
     this.database = [
       {
+        filename: 'ph-blog-site',
         img: '/static/img/bg4.jpg',
-        articleID: 1,
         title: 'Phoenine博客网站',
         editedAt: '2018-2-28',
-        views: 0,
         articleTags: ['vue', 'elementUI'],
         category: '技术',
         content: `# Phoenine
 
-        > A Vue.js project
-        
-        通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
-        
-        ## Vue Router
-        
-        通过 Vue Router 开发导航栏。
-        
-        ## CSS
-        
-        利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
-        
-        将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:
-        
-            return {
-              css: generateLoaders(),
-              postcss: generateLoaders(),
-              less: generateLoaders('less'),
-              sass: generateLoaders('sass', { indentedSyntax: true }),
-              scss: generateLoaders('sass').concat({
-                loader: 'sass-resources-loader',
-                options: {
-                  resources: ['src/sass-global/*.scss']
-                }
-              }),
-              ...
-            }
-        
-        另外，为了方便样式复用，把通用的 CSS 分离出来放在 /src/style 目录底下。`,
-        commentCurID: 0,
-        commentAmount: 0,
-        comments: {},
+> A Vue.js project
+
+通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
+
+## Vue Router
+
+通过 Vue Router 开发导航栏。
+
+## CSS
+
+利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
+
+将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:
+
+    return {
+      css: generateLoaders(),
+      postcss: generateLoaders(),
+      less: generateLoaders('less'),
+      sass: generateLoaders('sass', { indentedSyntax: true }),
+      scss: generateLoaders('sass').concat({
+        loader: 'sass-resources-loader',
+        options: {
+          resources: ['src/sass-global/*.scss']
+        }
+      }),
+      ...
+    }
+
+另外，为了方便样式复用，把通用的 CSS 分离出来放在 /src/style 目录底下。`,
       },
       {
+        filename: 'lalala',
         img: '/static/img/bg3.jpg',
-        articleID: 1,
         title: 'Phoenine博客网站',
         editedAt: '2018-3-25',
-        views: 0,
         articleTags: ['scss', 'vue'],
         category: '项目',
         content: `> A Vue.js project
         
-        通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
-        
-        ## Vue Router
-        
-        通过 Vue Router 开发导航栏。
-        
-        ## CSS
-        
-        利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
-        
-        将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:`,
-        commentCurID: 0,
-        commentAmount: 0,
-        comments: {},
+通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
+
+## Vue Router
+
+通过 Vue Router 开发导航栏。
+
+## CSS
+
+利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
+
+将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:`,
       },
     ]
   }
 
   nextAvailID() {
     return ++this.currentID
+  }
+
+  getData(filename) {
+    let db = this.database
+    for (let index = 0; index < db.length; index++) {
+      let data = db[index]
+      if (filename === data.filename) {
+        return {
+          index,
+          data,
+        }
+      }
+    }
+    return null
   }
 
   createDataset() {

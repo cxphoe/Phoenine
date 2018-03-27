@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-slide">
+  <transition name="fade-slide-d">
     <div class="repository">
       <ph-card :bodyStyle="bodyStyle">
         <div class="repository-header" slot="header">
@@ -57,8 +57,9 @@
 </template>
 
 <script>
-import { imgPaths } from '../../config'
+import config from '../../config'
 
+let imgPaths = config.imgPaths
 const imgs = {
   default: imgPaths.default,
 }
@@ -126,19 +127,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fade-slide-enter-active, .fade-slide-leave-active {
-  transition: all .5s;
-}
-
-.fade-slide-enter, .fade-slide-leave-to {
-  transform: translateY(-5px);
-  opacity: 0;
-}
-
-.fade-slide-move {
-  transition: transform .5s;
-}
-
 .repository {
   margin-bottom:20px;
   align-items: center;

@@ -4,6 +4,7 @@ import Home from '../components/page/home'
 import Login from '../components/page/login/main'
 import RepositoryPage from '../components/page/repository/index'
 import ArticlePage from '../components/page/article'
+import ArticleDetail from '../components/detail/article'
 
 Vue.use(Router)
 
@@ -32,9 +33,13 @@ export default new Router({
       children: [
         {
           path: ':type',
-          component: ArticlePage,
         },
       ],
+    },
+    {
+      path: '/article/detail/:name',
+      name: 'articleDetail',
+      component: ArticleDetail,
     },
   ],
 })

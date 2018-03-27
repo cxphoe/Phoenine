@@ -5,12 +5,10 @@ $avatar-width: 2rem;
   width: $avatar-width;
   height: $avatar-width;
   overflow: hidden;
-  top: 1.3rem;
-  right: 2rem;
 
   img {
     position: relative;
-    height: $avatar-width;
+    height: 100%;
     left: 50%;
     transform: translateX(-50%);
   }

@@ -1,12 +1,11 @@
 <template>
   <div class="ph-card">
-    <div
+    <template
       v-if="$slots.media"
-      class="ph-card__media"
       @click="handleMediaClick"
     >
       <slot name="media"></slot>
-    </div>
+    </template>
     <div
       class="ph-card__header"
       :class="{ plain: plain }"
@@ -46,7 +45,7 @@ export default {
       let media = medias[0]
       let children = media.children
       for (let c of children) {
-        if (c.tag === 'a') {
+        if (c.tag === 'a' || c.tag.indexOf('router-link') > -1) {
           return c.elm.href
         }
       }
@@ -62,33 +61,33 @@ export default {
       }
     },
   },
+
+  mounted() {
+    let mediaSlot = this.$slots.media
+    if (mediaSlot) {
+      let $el = mediaSlot[0].elm
+      $el.className += ' ph-card__media'
+      $el.onclick = this.handleMediaClick
+    }
+  },
 }
 </script>
 
 <style lang="scss">
 .ph-card__media {
-  position: relative;
   flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  cursor: pointer;
 
-  & > * {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #52aac1;
-    background-repeat: repeat;
-    background-position: 50% 50%;
-    background-size: cover;
-    background-origin: padding-box;
-    background-attachment: scroll;
-    box-sizing: border-box;
-
-    display: flex;
-    align-items: flex-end;
-    padding: 1.5rem;
-    cursor: pointer;
-  }
+  background-color: #52aac1;
+  background-repeat: repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-origin: padding-box;
+  background-attachment: scroll;
+  box-sizing: border-box;
 }
 
 .ph-card__header, .ph-card__body {

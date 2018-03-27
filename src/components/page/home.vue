@@ -37,7 +37,9 @@ import RepositoryIntro from '../intro/repository'
 import ArticleIntro from '../intro/article'
 import { getAsyncReposIntro } from '../data.js'
 import articleDatabase from '../../database/article'
-import { imgPaths } from '../../config'
+import config from '../../config'
+
+let imgPaths = config.imgPaths
 
 const imgs = {
   avatar: imgPaths.avatar,

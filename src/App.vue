@@ -3,7 +3,7 @@
     <div id="top"></div>
     <Sidebar/>
     <main class="app-main">
-      <transition name="fade-slide">
+      <transition name="fade-slide-d" mode="out-in">
         <router-view/>
       </transition>
     </main>
@@ -25,19 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-.fade-slide-enter-active, .fade-slide-leave-active {
-  transition: all .5s;
-}
-
-.fade-slide-enter, .fade-slide-leave-to {
-  transform: translateY(-5px);
-  opacity: 0;
-}
-
-.fade-slide-move {
-  transition: transform .5s;
-}
-
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -53,6 +40,11 @@ export default {
     @media screen and (max-width: 670px) {
       padding-top: 0;
     }
+  }
+
+  *::selection {
+    background: #b3d4fc;
+    text-shadow: none;
   }
 }
 

@@ -1,6 +1,10 @@
 <template>
   <div class="repository-intro slim-scrollbar">
-    <Loading size="xl" v-if="dataset.length === 0"></Loading>
+    <Loading
+      v-if="dataset.length === 0"
+      size="xl"
+      class="mh-auto"
+    ></Loading>
     <RepositoryCard
       class="mr3"
       v-for="(data, index) in introSet"

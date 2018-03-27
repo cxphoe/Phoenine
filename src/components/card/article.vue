@@ -5,37 +5,59 @@
       class="article-title"
       :style="{ backgroundImage: 'url(' + img + ')' }"
     >
-      <a
+      <router-link
         class="text-gray0-shadow-b4 link"
-        href="#"
-      >{{ title }}</a>
+        :to="routerLink"
+      >{{ title }}</router-link>
     </div>
-    <div>
-      <div class="ph3 pv4 f2">
-        <span>{{ preview }}</span>
-        <a class="ml3" href="#">阅读全文</a>
+    <div class="ph3 pv4 f2">
+      <span>{{ preview }}</span>
+      <router-link class="ml3" :to="routerLink">阅读全文</router-link>
+    </div>
+    <div class="pa3 f2 article-meta">
+      <div class="flex items-center">
+        <div class="avatar article-avatar">
+          <img :src="avatar">
+        </div>
+        <div class="flex flex-column ml3">
+          <span class="article-username fw6">{{ username }}</span>
+          <span class="lh-solid">{{ editedDate }}</span>
+        </div>
       </div>
-      <div class="pa3 f2 article-meta">
-        <span>{{ editedDate }}</span>
-        <ph-tag
-          class="article-category lh-title"
-          :content="category"
-          @click="handleTagClick(category)"
-          round
-          plain
-        ></ph-tag>
-      </div>
+      <ph-tag
+        class="article-category lh-title"
+        :content="category"
+        @click="handleTagClick(category)"
+        round
+        plain
+      ></ph-tag>
     </div>
   </ph-card>
 </template>
 
 <script>
-import { getFrontLines } from '../../util'
+import {
+  getFrontLines,
+  dateFormat,
+} from '../../utils/article'
+import config from '../../config'
+
+const imgs = {
+  avatar: config.imgPaths.avatar,
+  username: config.username,
+}
 
 export default {
   name: 'ArticleCard',
 
+  data() {
+    return {
+      ...imgs,
+    }
+  },
+
   props: {
+    filename: String,
     img: String,
     title: {
       type: String,
@@ -49,7 +71,6 @@ export default {
       type: String,
       default: '1970-1-1',
     },
-    articleID: [Number, String],
     articleTags: {
       type: Array,
       default: function () {
@@ -57,17 +78,15 @@ export default {
       },
     },
     category: String,
-    views: {
-      type: Number,
-      default: 0,
-    },
   },
 
   computed: {
+    routerLink() {
+      return `/article/detail/${this.filename}`
+    },
+
     editedDate() {
-      let date = this.editedAt
-      let [ year, month, day ] = date.split('-')
-      return `${month}月 ${day < 10 ? '0' + day : day}, ${year}`
+      return dateFormat(this.editedAt)
     },
 
     preview() {
@@ -98,6 +117,15 @@ export default {
     @media screen and (max-width: 840px) {
       font-size: 22px;
     }
+  }
+
+  .article-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .article-username  {
+    font-size: .9rem;
   }
 
   .article-meta {

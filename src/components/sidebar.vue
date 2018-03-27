@@ -122,9 +122,10 @@
 </template>
 
 <script>
-import { imgPaths } from '../config'
+import config from '../config'
 import articleDatabase from '../database/article'
 
+let imgPaths = config.imgPaths
 const imgs = {
   header: imgPaths.sidebar,
   avatar: imgPaths.avatar,
@@ -214,10 +215,6 @@ $avatar-width: 3.2rem;
     height: $avatar-width;
     top: 1.3rem;
     right: 2rem;
-
-    img {
-      height: $avatar-width;
-    }
   }
 }
 
