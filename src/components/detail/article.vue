@@ -1,11 +1,12 @@
 <template>
   <div>
-    <ph-sidebar class="show-md" zBaseIndex="13" closable cover>
+    <ph-sidebar class="show-xs" zBaseIndex="13" closable cover>
       <span slot="icon" class="article-catalogue-icon">
         <i class="fas fa-list-ol"></i>
       </span>
       <ph-catalogue>
         <ph-catalogue-item
+          class="article-anchor"
           v-for="(data, index) in catalogue"
           v-bind="data"
           :key="index"
@@ -41,16 +42,13 @@
 <script>
 import ArticleDetailCard from '../card/article/detail'
 import articleDatabase from '../../database/article'
-import config from '../../config'
+import Config from '../../mixins/config'
 import { toMarked, getmdCatalogue } from '../../utils/article'
-
-const data = {
-  avatar: config.imgPaths.avatar,
-  username: config.username,
-}
 
 export default {
   name: 'ArticleDetail',
+
+  mixins: [Config],
 
   data() {
     return {
@@ -64,7 +62,6 @@ export default {
         articleTags: [],
         editedAt: '1970-1-1',
       },
-      ...data,
     }
   },
 
@@ -99,7 +96,6 @@ export default {
           }
         }
         data1.markedHtml = toMarked(data2.content)
-        console.log(this.catalogue)
       }
     },
 
@@ -121,6 +117,12 @@ export default {
   created() {
     this.fetchData()
   },
+
+  mounted() {
+    let config = this.getConfig()
+    this.avatar = config.imgPaths.avatar
+    this.username = config.username
+  },
 }
 </script>
 
@@ -133,9 +135,21 @@ export default {
   top: 4.5rem;
 }
 
-@media screen and (max-width: 800px) {
-  .show-md {
+@media screen and (max-width: 484px) {
+  .show-xs {
     display: none;
+  }
+}
+
+.article-anchor {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.25rem 0;
+
+  &:hover {
+    text-decoration: none;
+    color: $color-first;
   }
 }
 

@@ -57,15 +57,12 @@
 </template>
 
 <script>
-import config from '../../config'
-
-let imgPaths = config.imgPaths
-const imgs = {
-  default: imgPaths.default,
-}
+import Config from '../../mixins/config'
 
 export default {
   name: 'RepositoryCard',
+
+  mixins: [Config],
 
   data() {
     return {
@@ -92,7 +89,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: imgs.default,
+      default: this.defaultImg,
     },
     name: {
       type: String,
@@ -118,9 +115,15 @@ export default {
     url: String,
   },
 
+  computed: {
+    defaultImg() {
+      return this.getConfig().imgPaths.default
+    },
+  },
+
   methods: {
     handleError(ev) {
-      ev.target.src = imgs.default
+      ev.target.src = this.defaultImg
     },
   },
 }

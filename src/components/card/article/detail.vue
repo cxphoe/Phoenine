@@ -56,21 +56,12 @@
 import {
   dateFormat,
 } from '../../../utils/article'
-import config from '../../../config'
-
-const imgs = {
-  avatar: config.imgPaths.avatar,
-  username: config.username,
-}
+import Config from '../../../mixins/config'
 
 export default {
   name: 'ArticleDatailCard',
 
-  data() {
-    return {
-      ...imgs,
-    }
-  },
+  mixins: [Config],
 
   props: {
     filename: String,
@@ -99,6 +90,12 @@ export default {
     editedDate() {
       return dateFormat(this.editedAt)
     },
+  },
+
+  created() {
+    let config = this.getConfig()
+    this.avatar = config.imgPaths.avatar
+    this.username = config.username
   },
 }
 </script>

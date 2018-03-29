@@ -25,6 +25,13 @@ import { scrollTo } from './utils/position'
 export default {
   name: 'App',
 
+  props: {
+    config: {
+      type: Object,
+      required: true,
+    },
+  },
+
   methods: {
     handleScroll() {
       let {

@@ -37,24 +37,30 @@ import RepositoryIntro from '../intro/repository'
 import ArticleIntro from '../intro/article'
 import { getAsyncReposIntro } from '../data.js'
 import articleDatabase from '../../database/article'
-import config from '../../config'
-
-let imgPaths = config.imgPaths
-
-const imgs = {
-  avatar: imgPaths.avatar,
-  logo: imgPaths.logo,
-  motto: imgPaths.motto,
-}
+import Config from '../../mixins/config'
 
 export default {
   name: 'Home',
+
+  mixins: [Config],
+
   data: function () {
     return {
-      imgs,
       repositories: getAsyncReposIntro(),
       articles: articleDatabase.database,
     }
+  },
+
+  computed: {
+    imgs() {
+      let config = this.getConfig()
+      let imgPaths = config.imgPaths
+      return {
+        avatar: imgPaths.avatar,
+        logo: imgPaths.logo,
+        motto: imgPaths.motto,
+      }
+    },
   },
 
   components: {

@@ -123,21 +123,16 @@
 </template>
 
 <script>
-import config from '../config'
+import Config from '../mixins/config'
 import articleDatabase from '../database/article'
-
-let imgPaths = config.imgPaths
-const imgs = {
-  header: imgPaths.sidebar,
-  avatar: imgPaths.avatar,
-}
 
 export default {
   name: 'Sidebar',
 
+  mixins: [Config],
+
   data() {
     return {
-      imgs,
       activeCollapse: '',
       stat: articleDatabase.getDatabaseStat(),
       pages: [
@@ -157,6 +152,18 @@ export default {
           path: '/article',
         },
       ],
+    }
+  },
+
+  computed: {
+    imgs() {
+      let config = this.getConfig()
+      let imgPaths = config.imgPaths
+
+      return {
+        header: imgPaths.sidebar,
+        avatar: imgPaths.avatar,
+      }
     }
   },
 
