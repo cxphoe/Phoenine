@@ -1,5 +1,5 @@
 <template>
-  <ph-card class="article-card" plain>
+  <ph-card class="article-preview" plain>
     <div
       slot="media"
       class="article-title"
@@ -39,8 +39,8 @@
 import {
   getFrontLines,
   dateFormat,
-} from '../../utils/article'
-import config from '../../config'
+} from '../../../utils/article'
+import config from '../../../config'
 
 const imgs = {
   avatar: config.imgPaths.avatar,
@@ -48,7 +48,7 @@ const imgs = {
 }
 
 export default {
-  name: 'ArticleCard',
+  name: 'ArticlePreviewCard',
 
   data() {
     return {
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article-card {
+.article-preview {
   margin: 0;
   min-height: 25pc;
 

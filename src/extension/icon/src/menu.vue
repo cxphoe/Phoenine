@@ -48,7 +48,8 @@ $bar-gap: .35rem;
 
   span {
     transition: .5s;
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 1px solid #000;
+    box-shadow: 0 0 1px 1px #ccc;
     width: 1.5rem;
     display: block;
     position: relative;

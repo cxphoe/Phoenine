@@ -2,6 +2,7 @@
   <ph-sidebar
     id="main-nav"
     class="slim-scrollbar"
+    zBaseIndex="10"
     @aside-click="handleClick"
     @item-click="handleClick"
     closable
@@ -19,7 +20,7 @@
         :key="index"
       >
         <router-link
-          class="link"
+          class="link relative"
           exact-active-class="sidebar-link-active"
           :to="page.path"
         >
@@ -255,7 +256,7 @@ $avatar-width: 3.2rem;
     border-radius: 50%;
     border: 3px solid #bbb;
     position: absolute;
-    right: 2.1rem;
+    right: 33px;
   }
 }
 </style>

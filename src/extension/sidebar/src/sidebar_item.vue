@@ -56,12 +56,12 @@ export default {
 }
 
 .ph-sidebar-item.wrap-text {
-  padding: .6rem 2rem;
+  padding: .6rem 1.75rem;
 }
 
 .ph-sidebar-item.fill-child {
   & > * {
-    padding: .6rem 2rem;
+    padding: .6rem 1.75rem;
     display: flex;
     align-items: center;
   }

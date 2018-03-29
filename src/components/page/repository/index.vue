@@ -1,9 +1,9 @@
 <template>
-  <div class="center flex flex-row bg-gray0 ofx-hidden">
-    <ph-sidebar closable cover>
-      <ph-sidebar-icon slot="icon" class="repo-page-icon">
+  <div class="center flex flex-row bg-gray0">
+    <ph-sidebar zBaseIndex="13" closable cover>
+      <span slot="icon" class="repo-page-icon">
         <i class="fas fa-list"></i>
-      </ph-sidebar-icon>
+      </span>
       <PageAside
         class="h-100"
         :items=searchTags
@@ -11,8 +11,8 @@
       ></PageAside>
     </ph-sidebar>
     <PageMain
-    :selectedTags=selectedTags
-    :repos=repos
+      :selectedTags=selectedTags
+      :repos=repos
       @cancel-tag="cancelTag"
     ></PageMain>
   </div>
@@ -69,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 .repo-page-icon {
-  cursor: pointer;
+  position: fixed;
   font-size: 1.5rem;
   left: 1.5rem;
   top: 4.5rem;

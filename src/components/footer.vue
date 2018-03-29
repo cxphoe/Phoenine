@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss">
 .footer {
-  padding: 3rem;
+  padding: 40px 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,27 +36,27 @@ export default {
   @media screen and (max-width: 768px) {
     & {
       display: block;
-      padding: 2rem 0;
+      padding: 32px 8px;
 
       & > * {
         display: block;
         margin: auto;
         text-align: center;
         & + * {
-          margin-top: 1.25rem;
+          margin-top: 8px;
         }
       }
     }
   }
 
   .social-link a {
-    line-height: .8;
-    font-size: 1.75rem;
+    font-size: 28px;
     color: #52aac1;
   }
 
   .copyright {
-    font-size: .9rem;
+    line-height: 14px;
+    font-size: 14px;
     color: #aaa;
   }
 }

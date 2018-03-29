@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-column pa4 w-100">
+  <main class="flex flex-column pa4 w-100 shadow--4dp">
     <div class="mb3">
       <header class="flex flex-column flex-row-ns justify-between-ns
         items-center-ns bb bw2 b-gray2 pb3 mb3">
@@ -46,8 +46,8 @@
     <Loading size="xl" v-if="repos.length === 0"></Loading>
     <section class="flex flex-row ma0 pa0 flex-wrap">
       <RepositoryCard
-        class="w-25-lg w-33-md w-50-sm w-100-xs"
-        v-for="(data, index) in matchedProjects"
+        class="w-33-md w-50-sm w-100-xs"
+        v-for="(data, index) in matchedRepos"
         v-bind="data"
         :key="index"
       ></RepositoryCard>
@@ -81,7 +81,7 @@ export default {
   },
 
   computed: {
-    matchedProjects() {
+    matchedRepos() {
       let tags = this.selectedTags
       return tags.length
         ? this.repos.filter(p => {
@@ -122,14 +122,7 @@ export default {
   color: $color-first;
 }
 
-@media screen and (min-width: 1330px) {
-  .w-25-lg {
-    width: 25%;
-  }
-}
-
-@media screen and (max-width: 1330px)
-              and (min-width: 886px)
+@media screen and (min-width: 886px)
 {
   .w-33-md {
     width: 33.33333%;

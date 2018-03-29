@@ -99,7 +99,7 @@ export default {
     }
 
     &:first-child {
-      padding: .6rem 2rem;
+      padding: .6rem 1.75rem;
     }
 
     &.unfold {
@@ -109,7 +109,7 @@ export default {
 
   .__collapse-icon {
     position: absolute;
-    right: 2rem;
+    right: 1.75rem;
   }
 
   .__collapse-content {

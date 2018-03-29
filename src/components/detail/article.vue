@@ -1,45 +1,48 @@
 <template>
-  <transition name="fade-slide-d" mode="out-in">
-    <ph-card
-      class="article-detail shadow--4dp"
-      plain
-    >
+  <div>
+    <ph-sidebar class="show-md" zBaseIndex="13" closable cover>
+      <span slot="icon" class="article-catalogue-icon">
+        <i class="fas fa-list-ol"></i>
+      </span>
+      <ph-catalogue>
+        <ph-catalogue-item
+          v-for="(data, index) in catalogue"
+          v-bind="data"
+          :key="index"
+        ></ph-catalogue-item>
+      </ph-catalogue>
+    </ph-sidebar>
+    <ArticleDetailCard
+      v-bind="data"
+    ></ArticleDetailCard>
+    <div class="flex items-center f2 pa3 pb0">
       <div
-        slot="media"
-        class="article-title"
-        :style="{ backgroundImage: 'url(' + data.img + ')' }"
+        v-if="hasPrev"
+        class="mr-auto flex items-center"
       >
-        <span
-          class="text-gray0-shadow-b4"
-        >{{ data.title }}</span>
+        <ph-button class="push-btn" @click="pushNewPath(dbIndex-1)">
+          <ph-arrow-icon initStatus="left"></ph-arrow-icon>
+        </ph-button>
+        <span>前篇</span>
       </div>
-      <div>
-        <div class="pa3 f2 article-meta">
-          <div class="flex items-center">
-            <div class="avatar article-avatar">
-              <img :src="avatar">
-            </div>
-            <div class="flex flex-column ml3">
-              <span class="fw6 username">{{ username }}</span>
-              <span class="lh-solid">{{ editedDate }}</span>
-            </div>
-          </div>
-          <span class="f4">
-            <i class="fas fa-bookmark"></i>
-          </span>
-        </div>
+      <div
+        v-if="hasNext"
+        class="ml-auto flex items-center"
+      >
+        <span>旧篇</span>
+        <ph-button class="push-btn" @click="pushNewPath(dbIndex+1)">
+          <ph-arrow-icon initStatus="right"></ph-arrow-icon>
+        </ph-button>
       </div>
-      <div class="markdown-body article-content" v-html="markedHtml">
-      </div>
-      <div class="article-comment"></div>
-    </ph-card>
-  </transition>
+    </div>
+  </div>
 </template>
 
 <script>
+import ArticleDetailCard from '../card/article/detail'
 import articleDatabase from '../../database/article'
-import { dateFormat, toMarked } from '../../utils/article'
 import config from '../../config'
+import { toMarked, getmdCatalogue } from '../../utils/article'
 
 const data = {
   avatar: config.imgPaths.avatar,
@@ -54,6 +57,11 @@ export default {
       database: articleDatabase,
       dbIndex: -1,
       data: {
+        filename: 'loading...',
+        img: '',
+        title: 'loading...',
+        markedHtml: 'loading...',
+        articleTags: [],
         editedAt: '1970-1-1',
       },
       ...data,
@@ -66,16 +74,12 @@ export default {
     },
 
     hasNext() {
-      let db = this.articleDatabase
+      let db = this.database
       return this.dbIndex + 1 < db.database.length
     },
 
-    editedDate() {
-      return dateFormat(this.data.editedAt)
-    },
-
-    markedHtml() {
-      return toMarked(this.data.content)
+    catalogue() {
+      return getmdCatalogue(this.data.markedHtml)
     },
   },
 
@@ -86,10 +90,32 @@ export default {
 
       let data = this.database.getData(name)
       if (data !== null) {
+        let data1 = this.data
+        let data2 = data.data
         this.dbIndex = data.index
-        this.data = data.data
+        for (let key in data2) {
+          if (key in data1) {
+            data1[key] = data2[key]
+          }
+        }
+        data1.markedHtml = toMarked(data2.content)
+        console.log(this.catalogue)
       }
     },
+
+    pushNewPath(index) {
+      let db = this.database
+      let data = db.database[index]
+      this.$router.push(`/article/detail/${data.filename}`)
+    },
+  },
+
+  watch: {
+    '$route': 'fetchData',
+  },
+
+  components: {
+    ArticleDetailCard,
   },
 
   created() {
@@ -99,44 +125,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article-detail {
-  margin: 0;
-  min-height: 25pc;
+.article-catalogue-icon {
+  position: fixed;
+  z-index: 10;
+  font-size: 1.5rem;
+  left: 1.5rem;
+  top: 4.5rem;
+}
 
-  .article-avatar {
-    width: 2.75rem;
-    height: 2.75rem;
+@media screen and (max-width: 800px) {
+  .show-md {
+    display: none;
   }
+}
 
-  .username {
-    font-size: .9rem;
-  }
+.push-btn {
+  padding: 1rem;
+  background-color: #fff;
 
-  .article-title {
-    font-size: 34px;
-    height: 280px;
-
-    @media screen and (max-width: 840px) {
-      font-size: 22px;
-    }
-  }
-
-  .article-meta {
-    border-top: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .article-content {
-    max-width: 90%;
-    margin: 1rem auto 3rem;
-    font-family: $font-main;
-  }
-
-  .article-comment {
-    padding: 2rem;
-    background-color: #eee;
+  & + *, * + & {
+    margin-left: 1rem;
   }
 }
 </style>
