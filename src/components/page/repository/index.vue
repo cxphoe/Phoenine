@@ -73,5 +73,6 @@ export default {
   font-size: 1.5rem;
   left: 1.5rem;
   top: 4.5rem;
+  z-index: 9;
 }
 </style>
