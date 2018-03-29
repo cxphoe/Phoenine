@@ -36,12 +36,19 @@ export default {
       $toTop.style.right = bottom < -300 ? '1.25rem' : ''
 
       let b = $footer.getBoundingClientRect()
-      let hitFooter = b.top <= $toTop.dataset.middle
+      let footerToBottom = window.innerHeight - b.top
+      let hitFooter = footerToBottom >= $toTop.dataset.middle
+
       let s = $toTop.style
       s.position = hitFooter ? 'absolute' : ''
       s.bottom = hitFooter
         ? `${b.height - $toTop.offsetHeight / 2}px`
         : ''
+    },
+
+    getToTopMiddle() {
+      let b = this.$toTop.getBoundingClientRect()
+      this.$toTop.dataset.middle = 25 + b.height / 2
     },
 
     scrollToTop() {
@@ -58,8 +65,7 @@ export default {
     this.$top = document.querySelector('#top')
     this.$toTop = document.querySelector('#to-top')
     this.$footer = this.$refs.footer.$el
-    let b = this.$toTop.getBoundingClientRect()
-    this.$toTop.dataset.middle = b.top + b.height / 2
+    this.getToTopMiddle()
     window.onscroll = this.handleScroll
   },
 }
