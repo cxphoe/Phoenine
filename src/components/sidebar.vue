@@ -157,7 +157,7 @@ export default {
 
   computed: {
     imgs() {
-      let config = this.getConfig()
+      let config = this.getGlobalConfig()
       let imgPaths = config.imgPaths
 
       return {

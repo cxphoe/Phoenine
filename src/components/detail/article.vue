@@ -87,15 +87,15 @@ export default {
 
       let data = this.database.getData(name)
       if (data !== null) {
-        let data1 = this.data
-        let data2 = data.data
+        let to = this.data
+        let from = data.data
         this.dbIndex = data.index
-        for (let key in data2) {
-          if (key in data1) {
-            data1[key] = data2[key]
+        for (let key in from) {
+          if (key in to) {
+            to[key] = from[key]
           }
         }
-        data1.markedHtml = toMarked(data2.content)
+        to.markedHtml = toMarked(from.content)
       }
     },
 
@@ -119,7 +119,7 @@ export default {
   },
 
   mounted() {
-    let config = this.getConfig()
+    let config = this.getGlobalConfig()
     this.avatar = config.imgPaths.avatar
     this.username = config.username
   },
@@ -154,11 +154,17 @@ export default {
 }
 
 .push-btn {
+  transition: .3s;
   padding: 1rem;
   background-color: #fff;
+  box-shadow: 0 3px 10px 1px #bbb;
 
   & + *, * + & {
     margin-left: 1rem;
+  }
+
+  &:hover {
+    box-shadow: 0 6px 12px 1px #bbb;
   }
 }
 </style>

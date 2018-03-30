@@ -10,6 +10,7 @@
     <Footer ref="footer"/>
     <ph-button
       id="to-top"
+      class="shadow--4dp"
       @click="scrollToTop"
     >
       <i class="fas fa-angle-up"></i>
@@ -25,13 +26,7 @@ import { scrollTo } from './utils/position'
 export default {
   name: 'App',
 
-  props: {
     config: {
-      type: Object,
-      required: true,
-    },
-  },
-
   methods: {
     handleScroll() {
       let {

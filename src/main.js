@@ -20,12 +20,17 @@ axios.get('/static/json/config.json')
     new Vue({
       el: '#app',
       router,
+      data() {
+        return {
+          config,
+        }
+      },
       components: {
         App,
       },
       render(h) {
         return (
-          <App config={ config }/>
+          <App/>
         )
       },
     })

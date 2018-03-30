@@ -117,7 +117,7 @@ export default {
 
   computed: {
     defaultImg() {
-      return this.getConfig().imgPaths.default
+      return this.getGlobalConfig().imgPaths.default
     },
   },
 

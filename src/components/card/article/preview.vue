@@ -92,7 +92,7 @@ export default {
   },
 
   created() {
-    let config = this.getConfig()
+    let config = this.getGlobalConfig()
     this.avatar = config.imgPaths.avatar
     this.username = config.username
   },

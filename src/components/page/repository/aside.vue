@@ -35,18 +35,18 @@ export default {
     },
   },
 
+  methods: {
+    hangleInput(checkList) {
+      this.$emit('input', [...checkList])
+    }
+  },
+
   mounted() {
     Bus.$on('item-remove', (tag) => {
       let i = this.checkList.indexOf(tag)
       this.checkList.splice(i, 1)
     })
   },
-
-  methods: {
-    hangleInput(checkList) {
-      this.$emit('input', [...checkList])
-    }
-  }
 }
 </script>
 
