@@ -43,7 +43,7 @@
     </slot>
     <span
       ref="close-btn"
-      v-if="$slots.icon"
+      v-if="!attach"
       class="ph-sidebar-close-btn"
       :class="{ open: open }"
       @click="handleIconClick"
@@ -166,9 +166,8 @@ export default {
     let orderedList = [
       $refs.layer,
       $refs['attach-icon'],
-      $refs.aside,
       $refs['default-icon'] && $refs['default-icon'].$el,
-      $refs['close-btn'],
+      $refs.aside,
     ]
 
     for (let $el of orderedList) {
@@ -228,8 +227,10 @@ $transition-time: .4s;
 
 .ph-sidebar-default-icon {
   position: fixed;
-  left: 1.5rem;
-  top: 2.3rem;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #fff;
 }
 
 .ph-sidebar-attach-icon {
@@ -260,18 +261,22 @@ $transition-time: .4s;
   transition: $transition-time;
   cursor: pointer;
   position: fixed;
-  left: -3rem;
+  left: -1.5rem;
   top: 2rem;
+  opacity: 0;
   padding: 1.5rem;
   border-radius: 50%;
   background-color: #eee;
+  z-index: 0;
 
   & > * {
     padding: 0 !important;
   }
 
   &.open {
+    opacity: 1;
     left: $open-width - 24px;
+    z-index: 10000;
 
     @media screen and (max-width: 768px) {
       left: $open-width-md - 1.5pc;

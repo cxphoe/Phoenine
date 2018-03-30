@@ -71,8 +71,11 @@ export default {
 .repo-page-icon {
   position: fixed;
   font-size: 1.5rem;
-  left: 1.5rem;
-  top: 4.5rem;
+  line-height: 21px;
+  left: 0;
+  padding: .75rem 1rem;
+  background-color: #fff;
+  top: 3.1rem;
   z-index: 9;
 }
 </style>

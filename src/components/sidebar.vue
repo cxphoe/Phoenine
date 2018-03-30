@@ -241,8 +241,8 @@ $avatar-width: 3.2rem;
     position: absolute;
     width: $avatar-width;
     height: $avatar-width;
-    top: 1.3rem;
-    right: 2rem;
+    top: 2rem;
+    left: 1rem;
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ph-sidebar class="show-xs" zBaseIndex="13" closable cover>
+    <ph-sidebar zBaseIndex="13" closable cover>
       <span slot="icon" class="article-catalogue-icon">
         <i class="fas fa-list-ol"></i>
       </span>
@@ -131,14 +131,11 @@ export default {
   position: fixed;
   z-index: 10;
   font-size: 1.5rem;
-  left: 1.5rem;
-  top: 4.5rem;
-}
-
-@media screen and (max-width: 484px) {
-  .show-xs {
-    display: none;
-  }
+  line-height: 21px;
+  left: 3.5rem;
+  top: 0rem;
+  padding: .75rem 1rem;
+  background-color: #fff;
 }
 
 .article-anchor {
