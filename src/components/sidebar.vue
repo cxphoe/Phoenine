@@ -93,12 +93,16 @@
 
     <ph-sidebar-list>
       <ph-sidebar-item>
-        <span class="flex items-center">
+        <router-link
+          class="link relative"
+          exact-active-class="sidebar-link-active"
+          to="/about"
+        >
           <span class="sidebar-icon">
             <i class="far fa-id-card"></i>
           </span>
-          <span class="sidebar-text">About Me</span>
-        </span>
+          <span class="sidebar-text">关于我</span>
+        </router-link>
       </ph-sidebar-item>
       <ph-collapse v-model="activeCollapse">
         <ph-collapse-item name="contact">
@@ -119,6 +123,22 @@
         </ph-collapse-item>
       </ph-collapse>
     </ph-sidebar-list>
+
+    <ph-sidebar-divider/>
+
+    <ph-sidebar-item>
+      <router-link
+        class="link relative"
+        exact-active-class="sidebar-link-active"
+        to="/editor"
+      >
+        <span class="sidebar-icon">
+          <i class="far fa-edit"></i>
+        </span>
+        <span class="sidebar-text">编辑器</span>
+      </router-link>
+    </ph-sidebar-item>
+
   </ph-sidebar>
 </template>
 

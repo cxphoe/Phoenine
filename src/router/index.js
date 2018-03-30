@@ -5,6 +5,8 @@ import Login from '../components/page/login/main'
 import RepositoryPage from '../components/page/repository/index'
 import ArticlePage from '../components/page/article'
 import ArticleDetail from '../components/detail/article'
+import EditorPage from '../components/page/editor'
+import AboutPage from '../components/page/about'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/article/detail/:name',
       name: 'articleDetail',
       component: ArticleDetail,
+    },
+    {
+      path: '/editor',
+      name: 'editor',
+      component: EditorPage,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutPage,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

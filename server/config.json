@@ -1,5 +1,8 @@
 {
   "username": "Phoenine",
+  "gitUsername": "",
+  "articleBasePath": "",
+  "aboutMePath": "/about_me",
 
   "imgPaths": {
     "avatar": "/static/img/avatar.jpg",

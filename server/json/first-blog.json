@@ -1,8 +1,0 @@
-{
-  "img": "/static/img/bg4.jpg",
-  "title": "Phoenine博客网站",
-  "editedAt": "2018-2-28",
-  "articleTags": ["vue", "elementUI"],
-  "category": "技术",
-  "content": "另外，为了方便样式复用，把通用的 CSS 分离出来放在 /src/style 目录底下。"
-}

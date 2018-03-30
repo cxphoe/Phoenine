@@ -4,6 +4,11 @@ const toMarked = function (text) {
   return marked(text)
 }
 
+const getSafeContent = function (text) {
+  let reg = /(<script.*>.*<\/script>|<script.*\/>)/
+  return text.replace(reg, '')
+}
+
 const getFrontLines = function (text, lines) {
   const lineReg = /.*[\r\n]/g
   let res = []
@@ -53,6 +58,7 @@ const getmdCatalogue = function (html, lowestLevel) {
 
 export {
   toMarked,
+  getSafeContent,
   getFrontLines,
   dateFormat,
   getmdCatalogue,

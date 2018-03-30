@@ -8,15 +8,17 @@ import './style/element-variables.scss'
 import './style/custom.scss'
 import App from './App'
 import router from './router'
+import { processConfig } from './utils/data'
 
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(PhUI)
 
 /* eslint-disable no-new */
-axios.get('/static/json/config.json')
+axios.get('/config.json')
   .then(response => {
     let config = response.data
+    processConfig(config)
     new Vue({
       el: '#app',
       router,

@@ -24,7 +24,7 @@
           </div>
         </div>
         <div>
-          <template v-if="articleTags.length > 0">
+          <template v-if="tags.length > 0">
             <el-popover
               ref="bookmark"
               trigger="click"
@@ -32,7 +32,7 @@
             >
               <router-link
                 class="link article-tag-link"
-                v-for="(tag, index) in articleTags"
+                v-for="(tag, index) in tags"
                 :key="index"
                 :to="`/article/tag?name=${tag}`"
               >{{ tag }}</router-link>
@@ -64,7 +64,6 @@ export default {
   mixins: [Config],
 
   props: {
-    filename: String,
     img: String,
     title: {
       type: String,
@@ -78,7 +77,7 @@ export default {
       type: String,
       default: '1970-1-1',
     },
-    articleTags: {
+    tags: {
       type: Array,
       default: function () {
         return []
