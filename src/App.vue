@@ -34,7 +34,12 @@ export default {
         $footer,
       } = this
       let bottom = $top.getBoundingClientRect().bottom
-      $toTop.style.right = bottom < -300 ? '1.25rem' : ''
+      if (bottom < -300) {
+        $toTop.style.right = '1.25rem'
+      } else {
+        $toTop.style.right = ''
+        return
+      }
 
       let b = $footer.getBoundingClientRect()
       let footerToBottom = window.innerHeight - b.top

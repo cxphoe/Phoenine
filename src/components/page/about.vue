@@ -25,6 +25,8 @@ import { toMarked } from '../../utils/article'
 export default {
   name: 'AboutPage',
 
+  mixins: [Config],
+
   data() {
     return {
       status: null,
@@ -33,8 +35,6 @@ export default {
       content: '',
     }
   },
-
-  mixins: [Config],
 
   computed: {
     markedHtml() {
