@@ -26,7 +26,6 @@ import { scrollTo } from './utils/position'
 export default {
   name: 'App',
 
-    config: {
   methods: {
     handleScroll() {
       let {
