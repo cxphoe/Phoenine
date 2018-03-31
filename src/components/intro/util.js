@@ -1,16 +1,15 @@
-import Loading from '../utils/loading'
+import IntroTemplate from './tmpl'
 
 const generateIntroObj = function (options) {
   let components = {
-    Loading,
+    IntroTemplate,
     ...options.components,
   }
 
   let props = {
-    dataset: {
-      type: Array,
-      required: true,
-    },
+    status: [Number, String, Object],
+    message: String,
+    dataset: Array,
     showAmount: {
       type: Number,
       default: -1,
@@ -18,7 +17,7 @@ const generateIntroObj = function (options) {
   }
 
   let computed = {
-    introSet: function () {
+    introSet() {
       return this.showAmount < 0
         ? this.dataset
         : this.dataset.slice(0, this.showAmount)
@@ -31,6 +30,9 @@ const generateIntroObj = function (options) {
     components,
     props,
     computed,
+    mounted() {
+      console.log(this.dataset)
+    },
   }
 }
 

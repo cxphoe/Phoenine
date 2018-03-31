@@ -1,58 +1,72 @@
 <template>
-  <div>
-    <ph-sidebar zBaseIndex="13" closable cover>
-      <span slot="icon" class="article-catalogue-icon">
-        <i class="fas fa-list-ol"></i>
-      </span>
-      <ph-catalogue>
-        <ph-catalogue-item
-          class="article-anchor"
-          v-for="(data, index) in catalogue"
-          v-bind="data"
-          :key="index"
-        ></ph-catalogue-item>
-      </ph-catalogue>
-    </ph-sidebar>
-    <ArticleDetailCard
-      v-bind="data"
-    ></ArticleDetailCard>
-    <div class="flex items-center f2 pa3 pb0">
-      <div
-        v-if="hasPrev"
-        class="mr-auto flex items-center"
-      >
-        <ph-button class="push-btn" @click="pushNewPath(dbIndex-1)">
-          <ph-arrow-icon initStatus="left"></ph-arrow-icon>
-        </ph-button>
-        <span>前篇</span>
+  <div class="article-detail">
+    <Loading v-if="database.status === null" size="md" />
+    <ErrorPage
+      v-else-if="error"
+      :status="error.code"
+      :statusText="error.message"
+    />
+    <template v-else>
+      <ph-sidebar zBaseIndex="13" v-model="catalogueOpen" closable cover>
+        <span slot="icon" class="article-catalogue-icon">
+          <i class="fas fa-list-ol"></i>
+        </span>
+        <ph-catalogue>
+          <ph-catalogue-item
+            class="article-anchor"
+            v-for="(data, index) in catalogue"
+            v-bind="data"
+            :key="index"
+            @click="handleCatalogueClick"
+          ></ph-catalogue-item>
+        </ph-catalogue>
+      </ph-sidebar>
+      <ArticleDetailCard
+        v-bind="data"
+      ></ArticleDetailCard>
+      <div class="flex items-center f2 pa3 pb0">
+        <div
+          v-if="hasPrev"
+          class="mr-auto flex items-center"
+        >
+          <ph-button
+            class="push-btn pa3 bg-white"
+            @click="pushNewPath(dbIndex-1)"
+          >
+            <ph-arrow-icon initStatus="left"></ph-arrow-icon>
+          </ph-button>
+          <span>前篇</span>
+        </div>
+        <div
+          v-if="hasNext"
+          class="ml-auto flex items-center"
+        >
+          <span>旧篇</span>
+          <ph-button
+            class="push-btn pa3 bg-white"
+            @click="pushNewPath(dbIndex+1)
+          ">
+            <ph-arrow-icon initStatus="right"></ph-arrow-icon>
+          </ph-button>
+        </div>
       </div>
-      <div
-        v-if="hasNext"
-        class="ml-auto flex items-center"
-      >
-        <span>旧篇</span>
-        <ph-button class="push-btn" @click="pushNewPath(dbIndex+1)">
-          <ph-arrow-icon initStatus="right"></ph-arrow-icon>
-        </ph-button>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 import ArticleDetailCard from '../card/article/detail'
-import articleDatabase from '../../database/article'
-import Config from '../../mixins/config'
+import Loading from '../utils/loading'
+import ErrorPage from '../utils/error_page'
 import { toMarked, getmdCatalogue } from '../../utils/article'
+import { getData, isSuccess } from '../../utils/data/data'
 
 export default {
   name: 'ArticleDetail',
 
-  mixins: [Config],
-
   data() {
     return {
-      database: articleDatabase,
+      database: this.getArticleDatabase(),
       dbIndex: -1,
       data: {
         filename: 'loading...',
@@ -62,6 +76,8 @@ export default {
         articleTags: [],
         editedAt: '1970-1-1',
       },
+      error: null,
+      catalogueOpen: false,
     }
   },
 
@@ -71,12 +87,40 @@ export default {
     },
 
     hasNext() {
-      let db = this.database
-      return this.dbIndex + 1 < db.database.length
+      let ds = this.database.dataset
+      return this.dbIndex + 1 < ds.length
     },
 
     catalogue() {
       return getmdCatalogue(this.data.markedHtml)
+    },
+
+    sourcePath() {
+      let config = this.getGlobalConfig()
+      return config.articleBasePath
+    },
+  },
+
+  watch: {
+    'database.status': {
+      deep: true,
+      immediate: true,
+      handler() {
+        let db = this.database
+        let s = db.status
+        if (s === null) {
+          return
+        }
+
+        if (!isSuccess) {
+          this.error = {
+            code: db.status,
+            message: db.message,
+          }
+        } else {
+          this.fetchData()
+        }
+      },
     },
   },
 
@@ -85,17 +129,31 @@ export default {
       let params = this.$route.params
       let name = params.name
 
-      let data = this.database.getData(name)
-      if (data !== null) {
+      let article = this.database.getArticle(name)
+      if (article !== null) {
         let to = this.data
-        let from = data.data
-        this.dbIndex = data.index
+        let from = article.data
+        this.dbIndex = article.index
         for (let key in from) {
           if (key in to) {
             to[key] = from[key]
           }
         }
-        to.markedHtml = toMarked(from.content)
+
+        let contentPath = this.sourcePath + from.path
+        getData(contentPath, resp => {
+          to.markedHtml = toMarked(resp.data)
+        }, (errcode, message) => {
+          this.error = {
+            code: errcode,
+            message,
+          }
+        })
+      } else {
+        this.error = {
+          code: 404,
+          message: '你访问的资源不存在',
+        }
       }
     },
 
@@ -104,18 +162,16 @@ export default {
       let data = db.database[index]
       this.$router.push(`/article/detail/${data.filename}`)
     },
-  },
 
-  watch: {
-    '$route': 'fetchData',
+    handleCatalogueClick() {
+      this.catalogueOpen = false
+    },
   },
 
   components: {
     ArticleDetailCard,
-  },
-
-  created() {
-    this.fetchData()
+    ErrorPage,
+    Loading,
   },
 
   mounted() {
@@ -127,6 +183,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.article-detail {
+  min-height: 25rem;
+}
+
 .article-catalogue-icon {
   position: fixed;
   z-index: 10;
@@ -152,8 +212,6 @@ export default {
 
 .push-btn {
   transition: .3s;
-  padding: 1rem;
-  background-color: #fff;
   box-shadow: 0 3px 10px 1px #bbb;
 
   & + *, * + & {

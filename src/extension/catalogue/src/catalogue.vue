@@ -22,6 +22,10 @@ export default {
   methods: {
     getHeaders() {
       let defaultSlot = this.$slots.default
+      if (!defaultSlot) {
+        return []
+      }
+
       let headers = defaultSlot.filter(node => {
         return node.tag && node.tag.indexOf('PhCatalogueItem') > -1
       }).map(node => {

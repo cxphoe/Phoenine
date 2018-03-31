@@ -1,99 +1,26 @@
-import CommentDatabase from './comment'
+import { AsyncDataset } from '../utils/data/data'
+import { dateCompare } from '../utils/article'
 
-class ArticleDatabase extends CommentDatabase {
-  constructor() {
-    super()
-    this.currentID = 1
-    this.database = [
-      {
-        filename: 'ph-blog-site',
-        img: '/static/img/bg4.jpg',
-        title: 'Phoenine博客网站',
-        editedAt: '2018-2-28',
-        articleTags: ['vue', 'elementUI'],
-        category: '技术',
-        content: `# Phoenine
+export default class ArticleDatabase extends AsyncDataset {
+  success(resp) {
+    super.success(resp, data => data)
+    this.processDataset()
+  }
 
-> A Vue.js project
-
-通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
-
-## Vue Router
-
-通过 Vue Router 开发导航栏。
-
-## 啦啦啦
-
-利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
-
-将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:
-
-    return {
-      css: generateLoaders(),
-      postcss: generateLoaders(),
-      less: generateLoaders('less'),
-      sass: generateLoaders('sass', { indentedSyntax: true }),
-      scss: generateLoaders('sass').concat({
-        loader: 'sass-resources-loader',
-        options: {
-          resources: ['src/sass-global/*.scss']
-        }
-      }),
-      ...
+  processDataset() {
+    let ds = this.dataset
+    const cmp = (data1, data2) => {
+      return dateCompare(data1.editedAt, data2.editedAt)
     }
-
-另外，为了方便样式复用，把通用的 CSS 分离出来放在 /src/style 目录底下。
-
-# h1
-
-testing
-
-## h2
-
-testin
-
-#### h4
-
-testin
-
-### h3
-
-##### h5
-`,
-      },
-      {
-        filename: 'lalala',
-        img: '/static/img/bg3.jpg',
-        title: 'Phoenine博客网站',
-        editedAt: '2018-3-25',
-        articleTags: ['scss', 'vue'],
-        category: '项目',
-        content: `> A Vue.js project
-        
-通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
-
-## Vue Router
-
-通过 Vue Router 开发导航栏。
-
-## CSS
-
-利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
-
-将 /build/util.js 中 cssLoaders 的返回中加入 sass-resources-loader:`,
-      },
-    ]
+    ds.sort(cmp)
   }
 
-  nextAvailID() {
-    return ++this.currentID
-  }
-
-  getData(filename) {
-    let db = this.database
-    for (let index = 0; index < db.length; index++) {
-      let data = db[index]
-      if (filename === data.filename) {
+  getArticle(filename) {
+    let ds = this.dataset
+    let amount = ds.length
+    for (let index = 0; index < amount; index++) {
+      let data = ds[index]
+      if (data.filename === filename) {
         return {
           index,
           data,
@@ -103,47 +30,25 @@ testin
     return null
   }
 
-  createDataset() {
-    let newID = this.nextAvailID()
-    let extendAttrs = {
-      title: '',
-      createdAt: '',
-      views: 0,
-      tags: [],
-      content: '',
-    }
-    super.createDataset(newID, extendAttrs)
-  }
-
-  updateDataset(data) {
-    let ds = this.getDataset()
-    // 只更新dataset中存在的键，避免传入其他不相关的键
-    for (let key in data) {
-      if (key in ds) {
-        ds[key] = data[key]
-      }
-    }
-  }
-
   getDatabaseStat() {
     const archiveStat = {}
     const categoryStat = {}
     const tagStat = {}
 
-    this.database.forEach(a => {
-      let c = a.category
+    this.dataset.forEach(data => {
+      let c = data.category
       categoryStat[c] = c in categoryStat
         ? categoryStat[c] + 1
         : 1
 
-      let ts = a.articleTags
+      let ts = data.tags
       ts.forEach(t => {
         tagStat[t] = t in tagStat
           ? tagStat[t] + 1
           : 1
       })
 
-      let d = a.editedAt.split('-')
+      let d = data.editedAt.split('-')
       let year = d[0]
       let month = d[1]
       let yearArchive = archiveStat[year]
@@ -164,6 +69,7 @@ testin
         aStat.push([[year, month], yearArchive[month]])
       }
     }
+
     aStat.sort((x, y) => {
       let [ year1, month1 ] = x[0]
       let [ year2, month2 ] = y[0]
@@ -179,5 +85,3 @@ testin
     }
   }
 }
-
-export default ArticleDatabase.instance()

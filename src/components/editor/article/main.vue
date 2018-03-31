@@ -91,13 +91,10 @@
 <script>
 import FileSaver from 'file-saver'
 import { toMarked, getSafeContent } from '../../../utils/article'
-import Config from '../../../mixins/config'
 import TagEditor from './tag'
 
 export default {
   name: 'ArticleEditor',
-
-  mixins: [Config],
 
   data() {
     return {

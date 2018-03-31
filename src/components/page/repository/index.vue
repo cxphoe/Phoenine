@@ -12,7 +12,9 @@
     </ph-sidebar>
     <PageMain
       :selectedTags=selectedTags
-      :repos=repos
+      :status="database.status"
+      :message="database.message"
+      :repos="database.dataset"
       @cancel-tag="cancelTag"
     ></PageMain>
   </div>
@@ -22,15 +24,14 @@
 import PageAside from './aside'
 import PageMain from './main'
 import Bus from '../../bus'
-import { getAsyncReposIntro } from '../../data.js'
 
 export default {
   name: 'RepositoryPage',
 
   data() {
     return {
+      database: this.getRepoDatabase(),
       selectedTags: [],
-      repos: getAsyncReposIntro(),
     }
   },
 
@@ -39,7 +40,8 @@ export default {
     // 并更新数据中的 project 的 tags
     searchTags() {
       let tags = new Set()
-      this.repos.forEach((p) => {
+      let repos = this.database.dataset
+      repos.forEach((p) => {
         p.tags.forEach((tag) => {
           tags.add(tag)
         })

@@ -1,12 +1,15 @@
 <template>
-  <div class="article-intro">
-    <Loading size="xl" v-if="dataset.length === 0"></Loading>
+  <IntroTemplate
+    class="pv4 ph2"
+    :status="status"
+    :message="message"
+  >
     <ArticlePreviewCard
       v-for="(data, index) in introSet"
       v-bind="data"
       :key="index"
     ></ArticlePreviewCard>
-  </div>
+  </IntroTemplate>
 </template>
 
 <script>
@@ -21,9 +24,3 @@ export default generateIntroObj({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.article-intro {
-  padding: 1.5rem .5rem;
-}
-</style>

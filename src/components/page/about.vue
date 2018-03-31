@@ -15,17 +15,14 @@
 </template>
 
 <script>
-import Config from '../../mixins/config'
 import ArticleDetailCard from '../card/article/detail'
 import Loading from '../utils/loading'
 import ErrorPage from '../utils/error_page'
-import { getData } from '../../utils/data'
+import { getData, isSuccess } from '../../utils/data/data'
 import { toMarked } from '../../utils/article'
 
 export default {
   name: 'AboutPage',
-
-  mixins: [Config],
 
   data() {
     return {
@@ -42,8 +39,7 @@ export default {
     },
 
     success() {
-      let s = +this.status
-      return (s >= 200 && s < 300) || s === 304
+      return isSuccess(this.status)
     },
   },
 
@@ -61,7 +57,8 @@ export default {
   },
 
   created() {
-    let path = this.getGlobalConfig().aboutMePath
+    let config = this.getGlobalConfig()
+    let path = config.aboutMePath
     let json = path + '/about_me.json'
     let md = path + '/about_me.md'
 

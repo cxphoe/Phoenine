@@ -29,8 +29,9 @@ export default {
   },
 
   methods: {
-    handleClick() {
+    handleClick(ev) {
       scrollTo(document.getElementById(this.id))
+      this.$emit('click', ev)
     },
   },
 }

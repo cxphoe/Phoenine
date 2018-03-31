@@ -32,62 +32,7 @@
 
     <ph-sidebar-divider/>
 
-    <ph-collapse v-model="activeCollapse">
-      <ph-collapse-item name="archive">
-        <span slot="title" class="flex items-center">
-          <span class="sidebar-icon">
-            <i class="fas fa-archive"></i>
-          </span>
-          <span class="sidebar-text">归档</span>
-        </span>
-        <ph-sidebar-item
-          v-for="(data, index) in stat.archiveStat"
-          :key="index"
-          @click="handleArchiveClick(data[0][0], data[0][1])"
-        >
-          <div class="stat-meta">
-            <span>{{ dateFormat(data[0][0], data[0][1]) }}</span>
-            <span class="stat-count">{{ data[1] }}</span>
-          </div>
-        </ph-sidebar-item>
-      </ph-collapse-item>
-      <ph-collapse-item name="tags">
-        <span slot="title" class="flex items-center">
-          <span class="sidebar-icon">
-            <i class="fas fa-tags"></i>
-          </span>
-          <span class="sidebar-text">标签</span>
-        </span>
-        <ph-sidebar-item
-          v-for="(count, tag) in stat.tagStat"
-          :key="tag"
-          @click="handleTagClick(tag)"
-        >
-          <div class="stat-meta">
-            <span>{{ tag }}</span>
-            <span class="stat-count">{{ count }}</span>
-          </div>
-        </ph-sidebar-item>
-      </ph-collapse-item>
-      <ph-collapse-item name="category">
-        <span slot="title" class="flex items-center">
-          <span class="sidebar-icon">
-            <i class="fas fa-th"></i>
-          </span>
-          <span class="sidebar-text">分类</span>
-        </span>
-        <ph-sidebar-item
-          v-for="(count, cate) in stat.categoryStat"
-          :key="cate"
-          @click="handleCateClick(cate)"
-        >
-          <div class="stat-meta">
-            <span>{{ cate }}</span>
-            <span class="stat-count">{{ count }}</span>
-          </div>
-        </ph-sidebar-item>
-      </ph-collapse-item>
-    </ph-collapse>
+    <SidebarStat :activeCollapse.sync="activeCollapse"/>
 
     <ph-sidebar-divider/>
 
@@ -143,18 +88,14 @@
 </template>
 
 <script>
-import Config from '../mixins/config'
-import articleDatabase from '../database/article'
+import SidebarStat from './sidebar_stat'
 
 export default {
   name: 'Sidebar',
 
-  mixins: [Config],
-
   data() {
     return {
       activeCollapse: '',
-      stat: articleDatabase.getDatabaseStat(),
       pages: [
         {
           name: '主页',
@@ -184,34 +125,22 @@ export default {
         header: imgPaths.sidebar,
         avatar: imgPaths.avatar,
       }
-    }
+    },
   },
 
   methods: {
     handleClick() {
       this.activeCollapse = ''
     },
+  },
 
-    dateFormat(year, month) {
-      return `${month < 10 ? '0' + month : month}月 ${year}`
-    },
-
-    handleArchiveClick(year, month) {
-      this.$router.push(`/article/archive?year=${year}&month=${month}`)
-    },
-
-    handleCateClick(cate) {
-      this.$router.push(`/article/category?name=${cate}`)
-    },
-
-    handleTagClick(tag) {
-      this.$router.push(`/article/tag?name=${tag}`)
-    },
+  components: {
+    SidebarStat,
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $avatar-width: 3.2rem;
 
 #main-nav {

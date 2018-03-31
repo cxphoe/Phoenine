@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Sidebar from './components/sidebar'
+import Sidebar from './components/sidebar/sidebar'
 import Footer from './components/footer'
 import { scrollTo } from './utils/position'
 

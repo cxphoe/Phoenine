@@ -57,12 +57,8 @@
 </template>
 
 <script>
-import Config from '../../mixins/config'
-
 export default {
   name: 'RepositoryCard',
-
-  mixins: [Config],
 
   data() {
     return {
@@ -117,7 +113,8 @@ export default {
 
   computed: {
     defaultImg() {
-      return this.getGlobalConfig().imgPaths.default
+      let config = this.getGlobalConfig()
+      return config.imgPaths.default
     },
   },
 

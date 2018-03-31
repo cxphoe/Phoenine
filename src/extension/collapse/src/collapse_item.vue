@@ -18,7 +18,7 @@
     </div>
     <div
       class="__collapse-content"
-      :style="{ height: unfold ? slotsHeight : 0 }"
+      :style="{ height: unfold ? childrenHeight : 0 }"
     >
       <slot></slot>
     </div>
@@ -40,6 +40,7 @@ export default {
       active: false,
       // index 会被ph-collapse设置
       index: null,
+      childrenHeight: 0,
     }
   },
 
@@ -69,16 +70,22 @@ export default {
       this.active = !this.unfold
       this.dispatch('PhCollapse', 'item-click', this)
     },
+
+    getChildrenHeight() {
+      let d = this.$slots.default
+      this.childrenHeight = d === undefined
+        ? 0
+        : d.reduce((sum, cur) => {
+          let size = cur.elm.offsetHeight || 0
+          return sum + size
+        }, 0) + 'px'
+    },
   },
 
-  mounted() {
-    let d = this.$slots.default
-    this.slotsHeight = d === undefined
-      ? 0
-      : d.reduce((sum, cur) => {
-        let size = cur.elm.offsetHeight || 0
-        return sum + size
-      }, 0) + 'px'
+  updated() {
+    if (this.childrenHeight === 0) {
+      this.getChildrenHeight()
+    }
   },
 }
 </script>

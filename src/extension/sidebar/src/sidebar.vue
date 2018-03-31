@@ -78,6 +78,7 @@ export default {
   },
 
   props: {
+    value: {},
     closable: Boolean,
     cover: Boolean,
     attach: Boolean,
@@ -91,11 +92,13 @@ export default {
 
     open: {
       get() {
-        return this.closable ? this.active : true
+        return !this.closable
+          || this.value === undefined ? this.active : this.value
       },
       set(val) {
         if (this.closable) {
           this.active = val
+          this.$emit('input', val)
         }
       },
     },

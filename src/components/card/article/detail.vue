@@ -56,12 +56,9 @@
 import {
   dateFormat,
 } from '../../../utils/article'
-import Config from '../../../mixins/config'
 
 export default {
   name: 'ArticleDatailCard',
-
-  mixins: [Config],
 
   props: {
     img: String,

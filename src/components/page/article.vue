@@ -1,17 +1,20 @@
 <template>
-  <ArticleIntro :dataset="matchedSet" />
+  <ArticleIntro
+    :status="database.status"
+    :message="database.message"
+    :dataset="matchedSet"
+  />
 </template>
 
 <script>
 import ArticleIntro from '../intro/article'
-import articleDatabase from '../../database/article'
 
 export default {
   name: 'ArticlePage',
 
   data() {
     return {
-      dataset: articleDatabase.database,
+      database: this.getArticleDatabase(),
       routeData: {
         archive: null,
         category: null,
@@ -22,12 +25,13 @@ export default {
 
   computed: {
     matchedSet() {
-      let set = this.dataset
+      let set = this.database.dataset
       let {
         archive,
         category,
         tag
       } = this.routeData
+
       if (archive !== null) {
         set = set.filter(d => {
           return d.editedAt.indexOf(archive) > -1
@@ -38,7 +42,7 @@ export default {
         })
       } else if (tag !== null) {
         set = set.filter(d => {
-          return d.articleTags.includes(tag)
+          return d.tags.includes(tag)
         })
       }
 

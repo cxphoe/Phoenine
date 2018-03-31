@@ -1,38 +1,27 @@
 <template>
-  <div class="repository-intro slim-scrollbar">
-    <Loading
-      v-if="dataset.length === 0"
-      size="xl"
-      class="mh-auto"
-    ></Loading>
+  <IntroTemplate
+    class="mv4 mh2 flex of-auto slim-scrollbar"
+    :status="status"
+    :message="message"
+  >
     <RepositoryCard
       class="mr3"
       v-for="(data, index) in introSet"
       v-bind="data"
       :key="index"
     ></RepositoryCard>
-  </div>
+  </IntroTemplate>
 </template>
 
 <script>
 import RepositoryCard from '../card/repository'
 import { generateIntroObj } from './util'
-import ErrorPage from '../utils/error_page'
 
 export default generateIntroObj({
   name: 'RepositoryIntro',
 
   components: {
     RepositoryCard,
-    ErrorPage,
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.repository-intro {
-  margin: 1.5rem .5rem;
-  display: flex;
-  overflow: auto;
-}
-</style>

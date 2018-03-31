@@ -11,7 +11,7 @@
       >{{ title }}</router-link>
     </div>
     <div class="ph3 pv4 f2">
-      <span>{{ preview }}</span>
+      <span>{{ brief }}</span>
       <router-link class="ml3" :to="routerLink">阅读全文</router-link>
     </div>
     <div class="pa3 f2 article-meta">
@@ -36,16 +36,10 @@
 </template>
 
 <script>
-import {
-  getFrontLines,
-  dateFormat,
-} from '../../../utils/article'
-import Config from '../../../mixins/config'
+import { dateFormat } from '../../../utils/article'
 
 export default {
   name: 'ArticlePreviewCard',
-
-  mixins: [Config],
 
   props: {
     filename: String,
@@ -54,15 +48,15 @@ export default {
       type: String,
       default: '--',
     },
-    content: {
+    brief: {
       type: String,
-      default: '...',
+      default: 'Nothing...',
     },
     editedAt: {
       type: String,
       default: '1970-1-1',
     },
-    articleTags: {
+    tags: {
       type: Array,
       default: function () {
         return []
@@ -78,10 +72,6 @@ export default {
 
     editedDate() {
       return dateFormat(this.editedAt)
-    },
-
-    preview() {
-      return getFrontLines(this.content, 1)
     },
   },
 

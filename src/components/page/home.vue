@@ -27,29 +27,17 @@
         </div>
       </ph-card>
     </header>
-    <RepositoryIntro :dataset=repositories :showAmount=4></RepositoryIntro>
-    <ArticleIntro :dataset=articles :showAmount=4></ArticleIntro>
+    <RepositoryIntro v-bind="repoDatabase" :showAmount="4"></RepositoryIntro>
+    <ArticleIntro v-bind="articleDatabase" :showAmount="4"></ArticleIntro>
   </div>
 </template>
 
 <script>
 import RepositoryIntro from '../intro/repository'
 import ArticleIntro from '../intro/article'
-import { getAsyncReposIntro } from '../data.js'
-import articleDatabase from '../../database/article'
-import Config from '../../mixins/config'
 
 export default {
   name: 'Home',
-
-  mixins: [Config],
-
-  data: function () {
-    return {
-      repositories: getAsyncReposIntro(),
-      articles: articleDatabase.database,
-    }
-  },
 
   computed: {
     imgs() {
@@ -60,6 +48,14 @@ export default {
         logo: imgPaths.logo,
         motto: imgPaths.motto,
       }
+    },
+
+    repoDatabase() {
+      return this.getRepoDatabase()
+    },
+
+    articleDatabase() {
+      return this.getArticleDatabase()
     },
   },
 

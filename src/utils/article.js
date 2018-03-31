@@ -22,6 +22,7 @@ const getFrontLines = function (text, lines) {
   return res.join('')
 }
 
+// convert format 'yyyy-mm-dd' into 'mm月 dd, yyyy'
 const dateFormat = function (date) {
   let reg = /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/
   let match = reg.exec(date)
@@ -34,6 +35,25 @@ const dateFormat = function (date) {
   return `${month}月 ${day < 10 ? '0' + day : day}, ${year}`
 }
 
+// convert format 'yyyy-mm-dd' into '[yyyy, mm, dd]'
+const convertDate = function (date) {
+  return date.split('-').map(s => {
+    return +s
+  })
+}
+
+const dateCompare = function (date1, date2) {
+  let [year1, month1, day1] = convertDate(date1)
+  let [year2, month2, day2] = convertDate(date2)
+
+  return year1 === year2
+    ? month1 === month2
+      ? day2 - day1
+      : month2 - month1
+    : year2 - year1
+}
+
+// retrieve headers(h1, h2, h3...) in html structure
 const getmdCatalogue = function (html, lowestLevel) {
   const lowest = lowestLevel || 2
   const headerReg = /<h(\d+) id="(.*)">(.*)<\/h\1>/g
@@ -61,5 +81,6 @@ export {
   getSafeContent,
   getFrontLines,
   dateFormat,
+  dateCompare,
   getmdCatalogue,
 }

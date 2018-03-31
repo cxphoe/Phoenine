@@ -43,8 +43,9 @@
         </el-tooltip>
       </div>
     </div>
-    <Loading size="xl" v-if="repos.length === 0"></Loading>
-    <section class="flex flex-row ma0 pa0 flex-wrap">
+    <Loading v-if="status === null" size="xl" />
+    <ErrorPage v-else-if="!success" :status="status" :statusText="message" />
+    <section v-else class="flex flex-row ma0 pa0 flex-wrap">
       <RepositoryCard
         class="w-33-md w-50-sm w-100-xs"
         v-for="(data, index) in matchedRepos"
@@ -57,7 +58,9 @@
 
 <script>
 import Loading from '../../utils/loading'
+import ErrorPage from '../../utils/error_page'
 import RepositoryCard from '../../card/repository'
+import { isSuccess } from '../../../utils/data/data'
 
 export default {
   name: 'PageMain',
@@ -73,7 +76,8 @@ export default {
       type: Array,
       required: true,
     },
-
+    status: [Number, String, Object],
+    message: String,
     repos: {
       type: Array,
       required: true,
@@ -91,6 +95,10 @@ export default {
         })
         : this.repos
     },
+
+    success() {
+      return isSuccess(this.status)
+    },
   },
 
   methods: {
@@ -101,6 +109,7 @@ export default {
 
   components: {
     Loading,
+    ErrorPage,
     RepositoryCard,
   },
 }
