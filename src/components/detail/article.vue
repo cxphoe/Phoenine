@@ -124,6 +124,7 @@ export default {
     },
 
     '$route'() {
+      // database.status 为 null 时，数据还未加载完成，无法提取数据
       if (this.database.status === null) {
         return
       }
