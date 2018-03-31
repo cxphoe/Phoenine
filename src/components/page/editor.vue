@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ArticleEditor from '../editor/article/main'
+import ArticleEditor from '../editor/article/article_editor'
 
 export default {
   name: 'EditorPage',

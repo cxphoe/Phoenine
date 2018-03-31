@@ -2,9 +2,15 @@ import { AsyncDataset } from '../utils/data/data'
 import { dateCompare } from '../utils/article'
 
 export default class ArticleDatabase extends AsyncDataset {
+  constructor(path) {
+    super(path)
+    this.filenames = []
+  }
+
   success(resp) {
     super.success(resp, data => data)
     this.processDataset()
+    this.getUsedFilenames()
   }
 
   processDataset() {
@@ -82,6 +88,14 @@ export default class ArticleDatabase extends AsyncDataset {
       archiveStat: aStat,
       categoryStat,
       tagStat,
+    }
+  }
+
+  getUsedFilenames() {
+    let fns = this.filenames
+
+    for (let data of this.dataset) {
+      fns.push(data.filename)
     }
   }
 }

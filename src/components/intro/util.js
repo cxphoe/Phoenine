@@ -30,9 +30,6 @@ const generateIntroObj = function (options) {
     components,
     props,
     computed,
-    mounted() {
-      console.log(this.dataset)
-    },
   }
 }
 

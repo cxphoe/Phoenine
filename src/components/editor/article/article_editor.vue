@@ -1,5 +1,13 @@
 <template>
   <div class="article-editor">
+    <ConfirmCard
+      v-show="showConfirm"
+      :form="form"
+      :tags="tags"
+      :filename="filenameFormat"
+      @submit="submitForm('form')"
+      @cancel="showConfirm = false"
+    />
     <div class="mb2 f2 fw6 color-first editor-header">
       <span>
         此编辑器用来生成文件的配置文件，生成之后自动下载。请自行将下载文件放到相应的目录下。
@@ -9,10 +17,10 @@
         class="ml2"
         size="mini"
         type="primary"
-        @click="submitForm('form')"
+        @click="showConfirm = true"
       >生成</el-button>
     </div>
-    <el-form role="form" ref="form" :model="form" :rules="rules">
+    <el-form role="form" ref="form" :model="form" :rules="rules" status-icon>
       <el-row :gutter="20">
         <el-col :sm="12">
           <el-form-item prop="title">
@@ -91,18 +99,39 @@
 <script>
 import FileSaver from 'file-saver'
 import { toMarked, getSafeContent } from '../../../utils/article'
-import TagEditor from './tag'
+import TagEditor from './tag_editor'
+import ConfirmCard from './confirm_card'
+import path from 'path'
 
 export default {
   name: 'ArticleEditor',
 
   data() {
+    const validateFilename = (rule, value, callback) => {
+      if (value.trim() === '') {
+        callback(new Error('请输入文件名'))
+      } else if (this.usedFilenames.includes(value)) {
+        callback(new Error('文件名已被使用！'))
+      } else {
+        callback()
+      }
+    }
+    const validateString = (message) => {
+      return (rule, value, callback) => {
+        if (value.trim() === '') {
+          callback(new Error(message))
+        } else {
+          callback()
+        }
+      }
+    }
     return {
+      showConfirm: false,
       form: {
-        img: '',
         title: '',
         filename: '',
         category: '',
+        img: '',
         brief: '',
         content: '',
       },
@@ -110,29 +139,25 @@ export default {
       rules: {
         title: [
           {
-            required: true,
-            message: '请输入标题',
+            validator: validateString('请输入标题'),
             trigger: 'blur',
           },
         ],
         filename: [
           {
-            required: true,
-            message: '请输入保存的文件名',
+            validator: validateFilename,
             trigger: 'blur',
           },
         ],
         category: [
           {
-            required: true,
-            message: '请输入分类',
+            validator: validateString('请输入分类'),
             trigger: 'blur',
           },
         ],
         brief: [
           {
-            required: true,
-            message: '请输入摘要',
+            validator: validateString('请输入摘要'),
             trigger: 'blur',
           },
         ],
@@ -144,6 +169,11 @@ export default {
     markedHtml() {
       let safe = getSafeContent(this.form.content)
       return toMarked(safe)
+    },
+
+    filenameFormat() {
+      let fn = this.form.filename
+      return fn.trim().replace(/\s+/g, '-').toLowerCase()
     },
   },
 
@@ -179,6 +209,7 @@ export default {
             message: '生成文件失败',
           })
         }
+        this.showConfirm = false
       })
     },
 
@@ -190,9 +221,9 @@ export default {
     },
 
     generateFile() {
-      let { filename, content } = this.form
+      let { content } = this.form
+      let filename = this.filenameFormat
       let configInfo = this.generateConfig()
-      console.log(configInfo)
       this.saveFile(configInfo, filename + '.json')
 
       if (content.length !== 0) {
@@ -212,37 +243,37 @@ export default {
       let time = this.generateTime()
       let { img, title, brief, category } = this.form
       let tags = this.tags
-      let path = this.generateConfigFilePath(time)
+      let filename = this.filenameFormat
+      let filePath = this.generateFilePath(filename, time)
 
       let config = {
-        img,
-        title,
-        brief,
+        filename,
+        img: img.trim(),
+        title: title.trim(),
+        brief: brief.trim(),
         editedAt: Object.values(time).join('-'),
-        category,
+        category: category.trim(),
         tags,
-        path,
+        path: filePath,
       }
       return JSON.stringify(config)
     },
 
-    generateConfigFilePath(time) {
-      let filename = this.form.filename
+    generateFilePath(filename, time) {
       let {
         basePath,
         articleBasePath,
       } = this.getGlobalConfig()
       if (articleBasePath) {
-        basePath += `/${articleBasePath}`
+        basePath += `${articleBasePath}`
       }
       let archiveDate = time.year + '/' + time.month
-      let path = [
+      let filePath = path.resolve(
         basePath,
         archiveDate,
-        filename + '.md',
-      ].join('/')
-      console.log(path)
-      return path
+        filename + '.md'
+      )
+      return filePath
     },
 
     saveFile(text, filename) {
@@ -255,6 +286,12 @@ export default {
 
   components: {
     TagEditor,
+    ConfirmCard,
+  },
+
+  mounted() {
+    let database = this.getArticleDatabase()
+    this.usedFilenames = database.filenames
   },
 }
 </script>

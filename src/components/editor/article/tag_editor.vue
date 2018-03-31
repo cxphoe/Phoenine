@@ -38,11 +38,11 @@ export default {
 
   methods: {
     handleClick() {
-      let content = this.content
+      let content = this.content.trim()
       if (content) {
         this.$emit('add-tag', content)
-        this.content = ''
       }
+      this.content = ''
     },
 
     handleClose(tag) {
