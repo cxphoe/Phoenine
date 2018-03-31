@@ -30,7 +30,7 @@
           class="mr-auto flex items-center"
         >
           <ph-button
-            class="push-btn pa3 bg-white"
+            class="push-btn"
             @click="pushNewPath(dbIndex-1)"
           >
             <ph-arrow-icon initStatus="left"></ph-arrow-icon>
@@ -43,7 +43,7 @@
         >
           <span>旧篇</span>
           <ph-button
-            class="push-btn pa3 bg-white"
+            class="push-btn"
             @click="pushNewPath(dbIndex+1)
           ">
             <ph-arrow-icon initStatus="right"></ph-arrow-icon>
@@ -213,6 +213,8 @@ export default {
 .push-btn {
   transition: .3s;
   box-shadow: 0 3px 10px 1px #bbb;
+  padding: 1rem;
+  background-color: #fff;
 
   & + *, * + & {
     margin-left: 1rem;
