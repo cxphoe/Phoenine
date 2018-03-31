@@ -122,6 +122,14 @@ export default {
         }
       },
     },
+
+    '$route'() {
+      if (this.database.status === null) {
+        return
+      }
+
+      this.fetchData()
+    },
   },
 
   methods: {
@@ -159,7 +167,7 @@ export default {
 
     pushNewPath(index) {
       let db = this.database
-      let data = db.database[index]
+      let data = db.dataset[index]
       this.$router.push(`/article/detail/${data.filename}`)
     },
 
