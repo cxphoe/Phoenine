@@ -1,9 +1,6 @@
 import axios from 'axios'
+import path from 'path'
 import { AsyncDataset } from './data'
-
-const getFilePath = function (gitName, path) {
-  return path
-}
 
 const logoPath = '/master/showcase/logo.png'
 
@@ -16,7 +13,8 @@ const contentBasePath = function (gitName) {
 }
 
 const getContentUrl = function (gitName, repoName, filePath) {
-  return contentBasePath(gitName) + repoName + filePath
+  let res = path.join(contentBasePath(gitName), repoName, filePath)
+  return res
 }
 
 const getRepoIntro = function (gitName) {
@@ -49,6 +47,5 @@ const getAsyncReposIntro = function (gitName) {
 }
 
 export {
-  getFilePath,
   getAsyncReposIntro,
 }

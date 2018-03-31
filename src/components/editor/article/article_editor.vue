@@ -261,15 +261,11 @@ export default {
 
     generateFilePath(filename, time) {
       let {
-        basePath,
         articleBasePath,
       } = this.getGlobalConfig()
-      if (articleBasePath) {
-        basePath += `${articleBasePath}`
-      }
       let archiveDate = time.year + '/' + time.month
-      let filePath = path.resolve(
-        basePath,
+      let filePath = path.join(
+        articleBasePath,
         archiveDate,
         filename + '.md'
       )

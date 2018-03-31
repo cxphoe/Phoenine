@@ -12,6 +12,7 @@ import { getData } from './utils/data/data'
 import { getAsyncReposIntro } from './utils/data/repo'
 import ArticleDatabase from './database/article'
 import Data from './mixins/data'
+import path from 'path'
 
 Vue.config.productionTip = false
 Vue.use(Element)
@@ -22,22 +23,9 @@ Vue.mixin(Data)
 const retrieveData = function (config) {
   let gitUsername = config.gitUsername
   let aBasePath = config.articleBasePath
-  if (!['/', '\\'].includes(aBasePath[0])) {
-    aBasePath = '/' + aBasePath
-  }
-  let basePath = ''
-
-  if (gitUsername) {
-    basePath = config.basePath = ''
-
-    let imgPaths = config.imgPaths
-    for (let key in imgPaths) {
-      imgPaths[key] += basePath
-    }
-  }
 
   let repoDatabase = getAsyncReposIntro(gitUsername)
-  let sourcePath = basePath + aBasePath + '/source.json'
+  let sourcePath = path.join(aBasePath, 'source.json')
   let articleDatabase = new ArticleDatabase(sourcePath)
 
   return {
