@@ -1,5 +1,5 @@
 <template>
-  <ph-card class="article-preview" plain>
+  <ph-card class="article-preview" plain router>
     <div
       slot="media"
       class="article-title"

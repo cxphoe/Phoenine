@@ -33,6 +33,7 @@ export default {
     headerStyle: Object,
     bodyStyle: Object,
     plain: Boolean,
+    router: Boolean,
   },
 
   computed: {
@@ -46,7 +47,7 @@ export default {
       let children = media.children
       for (let c of children) {
         if (c.tag === 'a' || c.tag.indexOf('router-link') > -1) {
-          return c.elm.href
+          return this.router ? c.elm.pathname : c.elm.href
         }
       }
       return null
@@ -57,7 +58,11 @@ export default {
     handleMediaClick() {
       let link = this.mediaLink
       if (link) {
-        window.location = this.mediaLink
+        if (this.router) {
+          this.$router.push(link)
+        } else {
+          window.location = this.mediaLink
+        }
       }
     },
   },
