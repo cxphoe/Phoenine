@@ -46,7 +46,7 @@ export default {
 
   &.down, &.up {
     span:first-child {
-      left: calc(50% - 3px);
+      left: calc(50% - 2px);
     }
 
     span:last-child {
@@ -56,7 +56,7 @@ export default {
 
   &.left, &.right {
     span:first-child {
-      top: calc(50% - 3px);
+      top: calc(50% - 2px);
     }
 
     span:last-child {

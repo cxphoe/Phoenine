@@ -1,6 +1,6 @@
 <template>
   <IntroTemplate
-    class="mv4 mh2 flex of-auto slim-scrollbar"
+    class="mv4 mh2 flex of-auto slim-scrollbar of-scroll-touch"
     :status="status"
     :message="message"
   >

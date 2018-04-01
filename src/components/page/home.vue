@@ -13,9 +13,7 @@
             </span>
           </div>
           <div class="meta bg-gray0">
-            <div class="avatar">
-              <img :src="imgs.avatar">
-            </div>
+            <img class="avatar" :src="imgs.avatar">
             <span class="ml3 f2 fw6">Phoenine</span>
           </div>
         </ph-card>
@@ -85,6 +83,7 @@ header {
   @media screen and (max-width: 768px) {
     & {
       min-height: 22pc;
+      border-radius: 0;
     }
   }
 }

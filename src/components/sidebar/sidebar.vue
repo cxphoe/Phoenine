@@ -9,10 +9,8 @@
     cover
   >
     <div class="sidebar-header">
-      <img :src="imgs.header">
-      <div class="avatar sidebar-header-avatar">
-        <img :src="imgs.avatar">
-      </div>
+      <img class="sidebar-header-bg" :src="imgs.header">
+      <img class="avatar sidebar-header-avatar" :src="imgs.avatar">
     </div>
     <ph-sidebar-list>
       <ph-sidebar-item
@@ -158,7 +156,7 @@ $avatar-width: 3.2rem;
   position: relative;
   margin-bottom: .5rem;
 
-  & > img {
+  .sidebar-header-bg {
     min-width: 100%;
     height: 100%;
     position: relative;

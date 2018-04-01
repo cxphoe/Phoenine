@@ -1,4 +1,5 @@
 import { disableScroll, enableScroll } from './event'
+import { isMobile } from './util'
 
 const checkEl = function (el, caller) {
   if (!(el instanceof HTMLElement)) {
@@ -35,23 +36,28 @@ const scrollTo = function (el) {
   const fps = 60
   // 滚动的时间
   const interval = 0.4
+
   // 需要滚动的距离
   let dist = el.getBoundingClientRect().top
   const step = dist / (fps * interval)
 
+  isMobile() ? mobileScrollTo(dist) : pcScrollTo(dist, step, fps)
+}
+
+const pcScrollTo = function (distance, step, fps) {
   let astep = Math.abs(step)
   let st = getScrollTop()
   let oldst = st
 
-  const loop = () => {
+  function loop() {
     setTimeout(() => {
-      var adist = Math.abs(dist)
+      var adist = Math.abs(distance)
       // 确保页面滚动到固定的位置
       if (adist < astep) {
-        window.scrollBy(0, dist - 10)
+        window.scrollBy(0, distance - 10)
         enableScroll(window)
       } else {
-        dist -= step
+        distance -= step
         window.scrollBy(0, step)
         st = getScrollTop()
         // scrollTop 不变就说明页面已滚动到顶部或底部
@@ -67,6 +73,10 @@ const scrollTo = function (el) {
 
   disableScroll(window)
   loop()
+}
+
+const mobileScrollTo = function (distance, step) {
+  window.scrollBy(0, distance - 10)
 }
 
 export {

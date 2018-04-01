@@ -5,7 +5,7 @@
   "aboutMePath": "/about_me",
 
   "imgPaths": {
-    "avatar": "/static/img/avatar.jpg",
+    "avatar": "/static/img/avatar.png",
     "default": "/static/img/logo.png",
     "logo": "/static/img/logo.png",
     "sidebar": "/static/img/bg1.jpg",

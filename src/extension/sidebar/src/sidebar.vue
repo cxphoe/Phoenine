@@ -297,6 +297,7 @@ $transition-time: .4s;
   box-shadow: 2px 0 15px rgba(0, 0, 0,.35);
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #fff;
 
   &.open, & > * {

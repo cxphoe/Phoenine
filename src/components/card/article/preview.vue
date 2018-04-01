@@ -16,9 +16,7 @@
     </div>
     <div class="pa3 f2 article-meta">
       <div class="flex items-center">
-        <div class="avatar article-avatar">
-          <img :src="avatar">
-        </div>
+        <img class="avatar article-avatar" :src="avatar">
         <div class="flex flex-column ml3">
           <span class="article-username fw6">{{ username }}</span>
           <span class="lh-solid">{{ editedDate }}</span>
@@ -109,8 +107,6 @@ export default {
   .article-avatar {
     width: 2.75rem;
     height: 2.75rem;
-    border-radius: 50%;
-    overflow: hidden;
   }
 
   .article-username  {

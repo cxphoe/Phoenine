@@ -135,11 +135,6 @@ export default {
     width: 16rem;
     margin: auto;
     border-color: transparent;
-
-    &:hover {
-      transition: 300ms;
-      box-shadow: 0 10px 20px 2px #cccccc;
-    }
   }
 }
 
