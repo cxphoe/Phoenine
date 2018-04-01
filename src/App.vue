@@ -3,9 +3,7 @@
     <div id="top"></div>
     <Sidebar/>
     <main class="app-main">
-      <transition name="fade-slide-d" mode="out-in">
-        <router-view/>
-      </transition>
+      <router-view/>
     </main>
     <Footer ref="footer"/>
     <ph-button

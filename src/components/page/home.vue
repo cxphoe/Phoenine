@@ -1,35 +1,37 @@
 <template>
-  <div>
-    <header class="home-header">
-      <ph-card id="brand-card" plain>
-        <div
-          slot="media"
-          class="brand-motto"
-          :style="{ backgroundImage: `url(${imgs.motto})` }"
-        >
-          <span class="brand-motto-slogan text-gray0-shadow-b4">
-            Better late than never
-          </span>
-        </div>
-        <div class="meta bg-gray0">
-          <div class="avatar">
-            <img :src="imgs.avatar">
+  <transition name="fade-slide-d" mode="out-in">
+    <div>
+      <header class="home-header">
+        <ph-card id="brand-card" plain>
+          <div
+            slot="media"
+            class="brand-motto"
+            :style="{ backgroundImage: `url(${imgs.motto})` }"
+          >
+            <span class="brand-motto-slogan text-gray0-shadow-b4">
+              Better late than never
+            </span>
           </div>
-          <span class="ml3 f2 fw6">Phoenine</span>
-        </div>
-      </ph-card>
-      <ph-card id="logo-card" plain>
-        <div class="logo" slot="media">
-          <img :src="imgs.logo">
-        </div>
-        <div class="meta bg-gray0">
-          <span class="f2 fw6">Phoenine's Blog</span>
-        </div>
-      </ph-card>
-    </header>
-    <RepositoryIntro v-bind="repoDatabase" :showAmount="4"></RepositoryIntro>
-    <ArticleIntro v-bind="articleDatabase" :showAmount="4"></ArticleIntro>
-  </div>
+          <div class="meta bg-gray0">
+            <div class="avatar">
+              <img :src="imgs.avatar">
+            </div>
+            <span class="ml3 f2 fw6">Phoenine</span>
+          </div>
+        </ph-card>
+        <ph-card id="logo-card" plain>
+          <div class="logo" slot="media">
+            <img :src="imgs.logo">
+          </div>
+          <div class="meta bg-gray0">
+            <span class="f2 fw6">Phoenine's Blog</span>
+          </div>
+        </ph-card>
+      </header>
+      <RepositoryIntro v-bind="repoDatabase" :showAmount="4"></RepositoryIntro>
+      <ArticleIntro v-bind="articleDatabase" :showAmount="4"></ArticleIntro>
+    </div>
+  </transition>
 </template>
 
 <script>

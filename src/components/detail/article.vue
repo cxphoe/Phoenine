@@ -33,7 +33,7 @@
             class="push-btn"
             @click="pushNewPath(dbIndex-1)"
           >
-            <ph-arrow-icon initStatus="left"></ph-arrow-icon>
+            <i class="fas fa-arrow-left"></i>
           </ph-button>
           <span>前篇</span>
         </div>
@@ -46,7 +46,7 @@
             class="push-btn"
             @click="pushNewPath(dbIndex+1)
           ">
-            <ph-arrow-icon initStatus="right"></ph-arrow-icon>
+            <i class="fas fa-arrow-right"></i>
           </ph-button>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default {
         img: '',
         title: 'loading...',
         markedHtml: 'loading...',
-        articleTags: [],
+        tags: [],
         editedAt: '1970-1-1',
       },
       error: null,

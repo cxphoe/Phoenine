@@ -1,17 +1,19 @@
 <template>
-  <div class="about-page">
-    <Loading v-if="status === null" size="md" />
-    <ErrorPage
-      v-else-if="!success"
-      :status="status"
-      :statusText="message"
-    />
-    <ArticleDetailCard
-      v-else
-      v-bind="data"
-      :markedHtml="markedHtml"
-    ></ArticleDetailCard>
-  </div>
+  <transition name="fade-slide-d">
+    <div class="about-page">
+      <Loading v-if="status === null" size="md" />
+      <ErrorPage
+        v-else-if="!success"
+        :status="status"
+        :statusText="message"
+      />
+      <ArticleDetailCard
+        v-else
+        v-bind="data"
+        :markedHtml="markedHtml"
+      ></ArticleDetailCard>
+    </div>
+  </transition>
 </template>
 
 <script>

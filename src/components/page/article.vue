@@ -1,9 +1,11 @@
 <template>
-  <ArticleIntro
-    :status="database.status"
-    :message="database.message"
-    :dataset="matchedSet"
-  />
+  <transition name="fade-slide-d">
+    <ArticleIntro
+      :status="database.status"
+      :message="database.message"
+      :dataset="matchedSet"
+    />
+  </transition>
 </template>
 
 <script>

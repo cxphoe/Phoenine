@@ -109,6 +109,8 @@ export default {
   .article-avatar {
     width: 2.75rem;
     height: 2.75rem;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .article-username  {

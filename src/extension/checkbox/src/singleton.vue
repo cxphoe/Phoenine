@@ -15,8 +15,8 @@
       :value="label"
       :name="name"
       @change=handleChange>
-    <span class="sign" v-html=sign></span>
-    <span v-if="$slots.default || label">
+    <span class="ph-checkbox-sign" v-html=sign></span>
+    <span class="ph-checkbox-label-wrap" v-if="$slots.default || label">
       <slot></slot>
       <span
         v-if="!$slots.default"
@@ -154,13 +154,19 @@ export default {
 .ph-checkbox {
   cursor: pointer;
   display: inline-block;
+  position: relative;
+  padding-left: 2rem;
 
   input[type="checkbox"] {
     display: none;
   }
 
-  .sign {
-    margin-right: .25rem;
+  .ph-checkbox-label-wrap {
+    margin-left: 1.5rem;
+  }
+
+  .ph-checkbox-sign {
+    position: absolute;
   }
 }
 </style>

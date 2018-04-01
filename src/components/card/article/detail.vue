@@ -92,6 +92,7 @@ export default {
     let config = this.getGlobalConfig()
     this.avatar = config.imgPaths.avatar
     this.username = config.username
+    console.log(this.tags)
   },
 }
 </script>
@@ -104,6 +105,8 @@ export default {
   .article-avatar {
     width: 2.75rem;
     height: 2.75rem;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .username {

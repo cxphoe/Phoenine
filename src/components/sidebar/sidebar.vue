@@ -73,7 +73,7 @@
 
     <ph-sidebar-item>
       <router-link
-        class="link relative"
+        class="link relative mb5"
         exact-active-class="sidebar-link-active"
         to="/editor"
       >

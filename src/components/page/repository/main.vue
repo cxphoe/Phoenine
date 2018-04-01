@@ -7,40 +7,31 @@
           All {{ repos.length }} repositorys
         </h1>
         <div>
-          <el-tooltip placement="top" content="complete版本">
-            <el-button
-              class="p-pick-btn"
-              :class="{ 'p-pick-btn-active': mode === 'complete' }"
-              @click="mode = 'complete'"
-            >
-              <i class="fas fa-th"></i>
-            </el-button>
-          </el-tooltip>
-          <el-tooltip placement="top" content="simple版本">
-            <el-button
-              class="p-pick-btn"
-              :class="{ 'p-pick-btn-active': mode === 'simple' }"
-              @click="mode = 'simple'"
-            >
-              <i class="fas fa-th-list"></i>
-            </el-button>
-          </el-tooltip>
+          <el-button
+            class="p-pick-btn"
+            :class="{ 'p-pick-btn-active': mode === 'complete' }"
+            @click="mode = 'complete'"
+          >
+            <i class="fas fa-th"></i>
+          </el-button>
+          <el-button
+            class="p-pick-btn"
+            :class="{ 'p-pick-btn-active': mode === 'simple' }"
+            @click="mode = 'simple'"
+          >
+            <i class="fas fa-th-list"></i>
+          </el-button>
         </div>
       </header>
       <div class="flex flex-row flex-wrap items-center">
-        <el-tooltip
-          placement="top"
+        <ph-tag
           v-for="(tag, index) in selectedTags"
           :key="index"
-          :content="`remove ${tag} filter`"
-        >
-          <ph-tag
-            :content="tag"
-            @close="handleClose"
-            closable
-            round
-          ></ph-tag>
-        </el-tooltip>
+          :content="tag"
+          @close="handleClose"
+          closable
+          round
+        ></ph-tag>
       </div>
     </div>
     <Loading v-if="status === null" size="xl" />

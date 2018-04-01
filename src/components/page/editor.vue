@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-white pa3 shadow--4dp">
-    <ArticleEditor></ArticleEditor>
-  </div>
+  <transition name="fade-slide-d">
+    <div class="bg-white pa3 shadow--4dp">
+      <ArticleEditor></ArticleEditor>
+    </div>
+  </transition>
 </template>
 
 <script>
