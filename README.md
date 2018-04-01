@@ -8,6 +8,8 @@
 
 **Demo:** [blog.phoenine.com](https://blog.phoenine.com)
 
+**Demo详情:** [phoeninee/blog](https://github.com/phoeninee/blog)
+
 ## CSS
 
 使用scss。
