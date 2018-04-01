@@ -1,16 +1,16 @@
-<img src="/showcase/logo.png" height=50>
+<img src="/showcase/logo.png" height=100>
 
 # Phoenine
 
 > A Vue.js project
 
-通过 Vue 以及 Element UI 搭建博客。Webpack 设置沿用 Vue 官网示例。
+通过 Vue，Vue-router，axios 以及 Element UI 搭建博客。Webpack 设置沿用 [Vue 官网示例](https://vuejs-templates.github.io/webpack/)。
 
-## Vue Router
-
-通过 Vue Router 开发导航栏。
+**Demo:** [blog.phoenine.com](https://blog.phoenine.com)
 
 ## CSS
+
+使用scss。
 
 利用 sass 将 color 以及 font-family 抽离成单独的文件，存放在 /src/sass-global 目录底下，并利用 sass-resources-loader 插件加载到全局。
 
@@ -38,37 +38,67 @@
 
 以实现的组件有：
 
-1. card
-2. checkbox
-	1. singleton
-	2. group
-3. collapse
-	1. collapse
-	2. collapse-item
-4. icon
-	1. arrow-icon
-	2. menu-icon
-5. navbar
-	1. nav
-	2. list
-	3. item
-6. sidebar
-	1. sidebar
-	2. sidebar-divider
-	3. sidebar-item
-	4. sidebar-list
-7. tabs
-	1. tabs
-	2. tab-pane
-8. tag
+1. button
+2. card
+3. catalogue
+4. checkbox
+5. collapse
+6. icon
+7. navbar
+8. sidebar
+9. tabs
+10. tag
+
+详情见 [src/extension](src/extension)
 
 ## Features
 
-- [x] 通过git API获得git repository的信息
-- [x] 登陆界面：暂时没有用户数据获取的功能
-- [x] 留言界面
-- [ ] 文章编辑界面
-- [ ] 数据储存：暂时通过本地缓存模拟，在/database目录底下
+通过 server/config.json （在生产环境将会被直接复制到根目录）设置博客信息：
+
+	{
+	  // 显示在博客中的名字
+	  "username": "Phoenine",
+	  // github用户名
+	  "gitUsername": "Phoeninee",
+	  // 文章读取路径
+	  "articleBasePath": "/source",
+	  // about信息路径
+	  "aboutMePath": "/about_me",
+	  
+	  // 主要图片的路径
+	  "imgPaths": {
+		// 头像
+	    "avatar": "/static/img/avatar.png",
+		// 读取github库的logo失败时，使用的图片
+	    "default": "/static/img/logo.png",
+		// home页面右侧logo图片
+	    "logo": "/static/img/logo.png",
+		// 主侧边栏header背景图片
+	    "sidebar": "/static/img/bg1.jpg",
+		// home页面左侧motto背景图片
+	    "motto": "/static/img/bg2.jpg"
+	  }
+	}
+
+### github信息
+
+通过 config.json 中的 gitUsername，使用 git API 获得 git repository 的信息
+
+### 文章编辑界面
+
+简单的编辑功能，目前主要是用来生成文章的配置文件，相关格式见 [server/source](server/source/) 中的 source.json。目前只支持自动下载生成的文章（可选）以及相关配置文件。需要手动将这些信息放到相应设置的文章读取路径：
+
+- 文章需要放在[文章读取路径] / [生成配置信息时的年份] / [相应的月份] /
+ 路径下，文章名需与你在配置文件中的名字一致。
+- 文件配置信息需添加到 [文章读取路径] / source.json 文件中
+
+### 数据储存
+
+目前假定是通过本地存储。通过 config.json 设置数据读取路径（articleBasePath）。所有文章信息在该路径下的 source.json 存储，在 src/database/article.js 读取并分析 。未来如果需要改变数据读取来源，只需在 article.js 中修改处理代码（只要文章数据格式不变）。
+
+### 留言界面（未完成）
+
+之前已实现一个留言版，但目前已没使用，主要是界面改版，以及主要是由于未能找到存储留言数据的方式。已 src/database 中的文件做数据模拟。
 
 ## Develop
 

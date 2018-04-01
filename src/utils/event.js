@@ -6,7 +6,7 @@ const preventDefault = function (ev) {
   ev.returnValue = false
 }
 
-const scrollEvents = ['mousewheel']
+const scrollEvents = ['mousewheel', 'touchmove']
 
 const disableScroll = function (element) {
   scrollEvents.forEach(ev => {
