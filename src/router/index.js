@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/page/home'
-import Login from '../components/page/login/main'
 import RepositoryPage from '../components/page/repository/index'
 import ArticlePage from '../components/page/article'
 import ArticleDetail from '../components/detail/article'
@@ -17,11 +16,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
     },
     {
       path: '/repository',
