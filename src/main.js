@@ -39,6 +39,7 @@ const retrieveData = function (config) {
 getData('/config.json', response => {
   let config = response.data
   let data = retrieveData(config)
+  console.log(config)
   new Vue({
     el: '#app',
     router,

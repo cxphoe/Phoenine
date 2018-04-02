@@ -1,19 +1,19 @@
 <template>
   <transition name="fade-slide-d">
-    <div class="repository">
-      <ph-card :bodyStyle="bodyStyle">
-        <div class="repository-header" slot="header">
-          <!-- onerror 防止图片加载错误 -->
+    <div class="mb3">
+      <ph-card class="m-auto repo-card" :bodyStyle="bodyStyle">
+        <div class="flex" slot="header">
           <img
-            class="repository-logo-img" :src="logo"
-            @error.stop="handleError"
+            class="repo-logo-img"
+            crossorigin="anonymous"
+            :src="logoSrc"
           >
           <div class="ml3">
             <div
-              class="f3 fw6 gray7 repository-name"
+              class="f3 fw6 gray7 ofx-hidden relative repo-name"
             >{{ name }}</div>
             <ph-tag
-              class="repository-lang"
+              class="repo-lang"
               :content="lang"
               plain
               round
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="tc">
-          <el-row type=flex class="repository-git-info">
+          <el-row type=flex class="repo-git-info">
             <el-col
               class="mv-auto"
               v-for="(value, key) in gitInfo"
@@ -38,14 +38,14 @@
             </el-col>
           </el-row>
           <div class="pa3">
-            <div class="repository-card-info">
+            <div class="repo-card-info mb2">
               <p class="gray5">{{ description }}</p>
             </div>
-            <a :href="url" class="repository-link" target="_blank">
+            <a :href="url" class="repo-link f2 fw6" target="_blank">
               <i class="fas fa-info-circle"></i>
               Visit
             </a>
-            <a v-if="homePage" :href="homePage" target="_blank" class="repository-link">
+            <a v-if="homePage" :href="homePage" target="_blank" class="f2 fw6 repo-link">
               <i class="fas fa-eye"></i>
               Demo
             </a>
@@ -83,10 +83,6 @@ export default {
   },
 
   props: {
-    logo: {
-      type: String,
-      default: this.defaultImg,
-    },
     name: {
       type: String,
       default: '--',
@@ -116,6 +112,15 @@ export default {
       let config = this.getGlobalConfig()
       return config.imgPaths.default
     },
+
+    customizedLogo() {
+      let config = this.getGlobalConfig()
+      return config.repoLogos[this.name]
+    },
+
+    logoSrc() {
+      return this.customizedLogo || this.defaultImg
+    },
   },
 
   methods: {
@@ -127,34 +132,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.repository {
-  margin-bottom:20px;
-  align-items: center;
-
-  .ph-card {
-    width: 16rem;
-    margin: auto;
-    border-color: transparent;
-  }
+.repo-card {
+  width: 16rem;
 }
 
-.repository-logo-img {
+.repo-logo {
+  height: 50px;
+  width: 50px;
+}
+
+.repo-logo-img {
   height: 50px;
 }
 
-.repository-header {
-  display: flex;
-
-  span {
-    width: 100%;
-  }
-}
-
-.repository-name {
-  color: $color-gray7;
+.repo-name {
   width: 155px;
-  overflow-x: hidden;
-  position: relative;
 
   &:after {
     content: "";
@@ -167,39 +159,28 @@ export default {
   }
 }
 
-.repository-lang {
+.repo-lang {
   font-size: 12px;
   color: $color-gray5;
   border-color: $color-gray5;
   padding: .05rem .3rem;
   margin: 0;
   line-height: 1;
-
-  svg {
-    font-size: 10px;
-  }
 }
 
-.repository-git-info {
+.repo-git-info {
   height: 40px;
   background-color: $color-light;
   font-family: $font-display;
-
-  a {
-    color: inherit;
-  }
 }
 
-.repository-card-info {
+.repo-card-info {
   height: 45px;
   font-size: .9rem;
   overflow: hidden;
-  margin-bottom: .5rem;
 }
 
-.repository-link {
-  font-size: 0.8em;
-  font-weight: 600;
+.repo-link {
   color: $color-first;
   border-radius: 15px;
   box-shadow: 0 0 1px 1px $color-first;
@@ -210,7 +191,7 @@ export default {
     text-decoration: none;
     color: #fff;
     background-color: $color-first;
-    transition: 300ms;
+    transition: .3s;
   }
 }
 </style>

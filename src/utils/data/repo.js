@@ -1,20 +1,8 @@
 import axios from 'axios'
-import path from 'path'
 import { AsyncDataset } from './data'
-
-const logoPath = '/master/showcase/logo.png'
 
 const getRepoPath = function (gitName) {
   return `https://api.github.com/users/${gitName}/repos`
-}
-
-const contentBasePath = function (gitName) {
-  return `https://raw.githubusercontent.com/${gitName}/`
-}
-
-const getContentUrl = function (gitName, repoName, filePath) {
-  let res = path.join(contentBasePath(gitName), repoName, filePath)
-  return res
 }
 
 const getRepoIntro = function (gitName) {
@@ -28,7 +16,6 @@ const getRepoIntro = function (gitName) {
       homePage: repo.homepage,
       url: repo.html_url,
       description: repo.description,
-      logo: getContentUrl(gitName, repo.name, logoPath),
     }
 
     axios.get(repo.languages_url)
