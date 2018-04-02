@@ -33,6 +33,22 @@
 
 `ph-catalogue-item` 代表每一个目录标题，`ph-catalogue` 负责组织所有 `ph-catalogue-item` 子元素生成目录（通过堆栈，以及树结构）。
 
+	<ph-catalogue>
+	  <ph-catalogue-item level="1" title="h1" />
+	  <ph-catalogue-item level="2" title="h2" />
+	  <ph-catalogue-item level="4" title="h4" />
+	  <ph-catalogue-item level="3" title="h3" />
+	  <ph-catalogue-item level="5" title="h5" />
+	</ph-catalogue>
+
+**示例：**
+
+<img src="showcase/ph-catalogue1.png" width=200>
+
+可关闭的：
+
+<img src="showcase/ph-catalogue-closable.png" width=200>
+
 ### ph-catalogue
 
 选项：
@@ -57,6 +73,8 @@
 - ph-checkbox-group
 
 `checkbox` 的选取状态暂且由 fontawesome 的 icon 表示，以待更改。
+
+<img src="showcase/ph-checkbox.png" width=200>
 
 ### ph-checkbox
 
@@ -277,6 +295,8 @@ just a simple divider
 可用组件：
 
 - ph-tag
+
+<img src="showcase/ph-tag.png" width=200>
 
 ### ph-tag
 
