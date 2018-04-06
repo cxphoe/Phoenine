@@ -34,7 +34,6 @@ export default {
 <style lang="scss">
 .ph-arrow-icon {
   padding: .5rem;
-  position: relative;
 
   span {
     transition: .5s;
